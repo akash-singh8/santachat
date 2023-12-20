@@ -13,4 +13,16 @@ datasource db {
 model User {
   email     String   @id
   createdAt DateTime @default(now())
+  in        Chat[]   @relation("in")
+  out       Chat[]   @relation("out")
+}
+
+model Chat {
+  id        String   @id
+  message   String
+  createdAt DateTime @default(now())
+  from      User     @relation("in", fields: [fromUser], references: [email])
+  fromUser  String
+  to        User     @relation("out", fields: [toUser], references: [email])
+  toUser    String
 }
