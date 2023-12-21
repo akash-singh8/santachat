@@ -1,6 +1,6 @@
 import express from "express";
 import http from "http";
-import { WebSocketServer } from "ws";
+import { WebSocketServer, WebSocket } from "ws";
 import { config } from "dotenv";
 import jwt from "jsonwebtoken";
 
@@ -14,6 +14,16 @@ const wss = new WebSocketServer({ server });
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to SANTaCHAT Backend!" });
 });
+
+type wsClients = {
+  [name: string]: {
+    partner?: string;
+    ws: WebSocket;
+  };
+};
+
+const clients: wsClients = {};
+const singles: string[] = [];
 
 wss.on("connection", (ws, req) => {
   const closeConnection = () => {
@@ -30,9 +40,28 @@ wss.on("connection", (ws, req) => {
   const auth = req.headers.authorization?.split(" ")[1];
   if (!auth) closeConnection();
 
+  let user: string;
   try {
-    const user = jwt.verify(auth!, process.env.JWT_SECRET!);
-    console.log("Client Connected", user);
+    user = jwt.verify(auth!, process.env.JWT_SECRET!) as string;
+
+    if (clients[user]) {
+      ws.send(
+        JSON.stringify({
+          status: 409,
+          message: "Invalid request: Client already connected!",
+        })
+      );
+      ws.close();
+      return;
+    }
+
+    clients[user] = {
+      ws: ws,
+    };
+    singles.push(user);
+
+    console.log("Client connected: ", user);
+    console.log("Total connections :", Object.keys(clients).length);
   } catch (e) {
     closeConnection();
   }
@@ -44,7 +73,7 @@ wss.on("connection", (ws, req) => {
   });
 
   ws.on("close", () => {
-    console.log(`Client  disconnected`);
+    console.log(`Client disconnected: ${user}`);
   });
 });
 
