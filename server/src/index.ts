@@ -2,6 +2,7 @@ import express from "express";
 import http from "http";
 import { WebSocketServer } from "ws";
 import { config } from "dotenv";
+import jwt from "jsonwebtoken";
 
 config();
 const app = express();
@@ -15,7 +16,26 @@ app.get("/", (req, res) => {
 });
 
 wss.on("connection", (ws, req) => {
-  console.log("Client Connected");
+  const closeConnection = () => {
+    ws.send(
+      JSON.stringify({
+        status: 401,
+        message: "Invalid request: Unauthorized!",
+      })
+    );
+    ws.close();
+    return;
+  };
+
+  const auth = req.headers.authorization?.split(" ")[1];
+  if (!auth) closeConnection();
+
+  try {
+    const user = jwt.verify(auth!, process.env.JWT_SECRET!);
+    console.log("Client Connected", user);
+  } catch (e) {
+    closeConnection();
+  }
 
   ws.on("message", (message) => {
     console.log("Received Message :", message.toString());
