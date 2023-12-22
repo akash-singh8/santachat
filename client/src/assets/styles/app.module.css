@@ -1,0 +1,33 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 0 18px;
+  margin: 0 auto;
+  max-width: 1080px;
+  min-height: 100vh;
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
+.header p {
+  color: var(--primary-text);
+  font-size: 11.3px;
+  font-weight: 600;
+  margin-top: -7px;
+}
+
+.footer ul {
+  color: var(--primary-color);
+  font-family: monospace, Courier;
+  font-weight: 600;
+  text-align: center;
+  list-style: none;
+  letter-spacing: 2px;
+  margin-top: 54px;
+}
