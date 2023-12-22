@@ -1,0 +1,23 @@
+.home {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  row-gap: 48px;
+}
+
+.description {
+  color: var(--primary-text);
+  font-size: 14px;
+  text-align: center;
+  max-width: 520px;
+}
+
+.home button {
+  margin-top: -20px;
+}
+
+.home img {
+  max-width: 760px;
+}

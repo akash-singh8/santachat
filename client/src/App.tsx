@@ -1,4 +1,5 @@
 import style from "./assets/styles/app.module.css";
+import Home from "./components/Home";
 
 function App() {
   return (
@@ -7,6 +8,8 @@ function App() {
         <h1>SANTaCHAT</h1>
         <p>CONNECTING STUDENTS, CREATING COMMUNITY!</p>
       </header>
+
+      <Home />
 
       <footer className={style.footer}>
         <ul>
