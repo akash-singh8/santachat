@@ -2,6 +2,7 @@ import http from "http";
 import { WebSocket } from "ws";
 import { disconnectClient, wsCloseHandler } from "./close";
 import initiateConnection from "./initiate";
+import { prisma } from "../index";
 
 type wsClients = {
   [name: string]: {
@@ -24,10 +25,28 @@ const wsConnectionHandler = (ws: WebSocket, req: http.IncomingMessage) => {
   totalClients += 1;
   console.log("Total connections :", totalClients);
 
-  ws.on("message", (message) => {
-    console.log("Received Message :", message.toString());
+  ws.on("message", async (message) => {
+    const partner = client[user].partner;
+    if (!partner) {
+      return ws.send("Partner not found!");
+    }
 
-    ws.send(message.toString());
+    const msg = message.toString();
+    client[partner].ws.send(msg);
+
+    // store message in the database
+    try {
+      await prisma.chat.create({
+        data: {
+          message: msg,
+          fromUser: partner,
+          toUser: user,
+        },
+      });
+    } catch (e) {
+      console.error("Error while storing message: ");
+      console.log(e);
+    }
   });
 
   ws.on("close", () => {

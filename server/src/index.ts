@@ -2,12 +2,14 @@ import express from "express";
 import http from "http";
 import { WebSocketServer } from "ws";
 import { config } from "dotenv";
+import { PrismaClient } from "@prisma/client";
 import wsConnectionHandler from "./controller/ws";
 
 config();
 const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3053;
+export const prisma = new PrismaClient();
 
 const wss = new WebSocketServer({ server });
 
