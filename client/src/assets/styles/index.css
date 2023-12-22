@@ -51,3 +51,8 @@ h1 {
 .button:active {
   opacity: 0.8;
 }
+
+::selection {
+  color: #f8f9fa;
+  background-color: var(--primary-color);
+}
