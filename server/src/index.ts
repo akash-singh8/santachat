@@ -22,6 +22,7 @@ type wsClients = {
   };
 };
 
+let totalClients = 0;
 const clients: wsClients = {};
 const singles: string[] = [];
 
@@ -55,13 +56,25 @@ wss.on("connection", (ws, req) => {
       return;
     }
 
+    totalClients += 1;
     clients[user] = {
       ws: ws,
     };
-    singles.push(user);
+
+    const partner = singles.pop();
+    if (partner) {
+      clients[user].partner = partner;
+      clients[partner].partner = user;
+
+      clients[user].ws.send(`Partner found: ${partner}`);
+      clients[partner].ws.send(`Partner found: ${user}`);
+    } else {
+      singles.push(user);
+      ws.send("Waiting for a partner!");
+    }
 
     console.log("Client connected: ", user);
-    console.log("Total connections :", Object.keys(clients).length);
+    console.log("Total connections :", totalClients);
   } catch (e) {
     closeConnection();
   }
@@ -73,6 +86,17 @@ wss.on("connection", (ws, req) => {
   });
 
   ws.on("close", () => {
+    // also disconnect the partner as a user disconnects
+    const partner = clients[user]?.partner;
+    if (partner) {
+      clients[partner].ws.send("Partner disconnected!");
+      clients[partner].ws.close();
+      delete clients[partner];
+      totalClients -= 1;
+    }
+
+    delete clients[user];
+    totalClients -= 1;
     console.log(`Client disconnected: ${user}`);
   });
 });
