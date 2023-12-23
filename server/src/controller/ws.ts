@@ -16,7 +16,8 @@ export const client: wsClients = {};
 export const singles: string[] = [];
 
 const wsConnectionHandler = (ws: WebSocket, req: http.IncomingMessage) => {
-  const auth = req.headers.authorization?.split(" ")[1];
+  const url = new URL(req.url!, `${process.env.SERVER_BASE_URL}`);
+  const auth = url.searchParams.get("auth");
   if (!auth) return disconnectClient(ws);
 
   const user = initiateConnection(auth, ws);
@@ -32,7 +33,12 @@ const wsConnectionHandler = (ws: WebSocket, req: http.IncomingMessage) => {
     }
 
     const msg = message.toString();
-    client[partner].ws.send(msg);
+    client[partner].ws.send(
+      JSON.stringify({
+        status: 200,
+        message: msg,
+      })
+    );
 
     // store message in the database
     try {
