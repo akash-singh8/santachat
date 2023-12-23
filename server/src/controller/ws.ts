@@ -29,7 +29,12 @@ const wsConnectionHandler = (ws: WebSocket, req: http.IncomingMessage) => {
   ws.on("message", async (message) => {
     const partner = client[user].partner;
     if (!partner) {
-      return ws.send("Partner not found!");
+      return ws.send(
+        JSON.stringify({
+          status: 404,
+          message: "Partner not found!",
+        })
+      );
     }
 
     const msg = message.toString();

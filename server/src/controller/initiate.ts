@@ -31,11 +31,26 @@ const initiateConnection = (auth: string, ws: WebSocket) => {
     client[user].partner = partner;
     client[partner].partner = user;
 
-    client[user].ws.send(`Partner found: ${partner}`);
-    client[partner].ws.send(`Partner found: ${user}`);
+    client[user].ws.send(
+      JSON.stringify({
+        status: 202,
+        message: `Partner found: ${partner}`,
+      })
+    );
+    client[partner].ws.send(
+      JSON.stringify({
+        status: 202,
+        message: `Partner found: ${user}`,
+      })
+    );
   } else {
     singles.push(user);
-    ws.send("Waiting for a partner!");
+    ws.send(
+      JSON.stringify({
+        status: 201,
+        message: "Waiting for a partner!",
+      })
+    );
   }
 
   console.log("Client connected: ", user);
