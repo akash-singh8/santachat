@@ -1,11 +1,72 @@
 import style from "../assets/styles/chat.module.css";
 import send from "../assets/images/send.png";
+import { useEffect } from "react";
 
 const Chat = () => {
+  let ws: WebSocket;
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    if (!authToken) {
+      alert("Please verify your identity to continue!");
+      return;
+    }
+
+    ws = new WebSocket(`ws://localhost:3053?auth=${authToken}`);
+
+    ws.onopen = () => {
+      console.log("Connected to websocket server");
+    };
+
+    ws.onmessage = (event) => {
+      type Message = {
+        status: number;
+        message: string;
+      };
+
+      const data: Message = JSON.parse(event.data);
+      console.log("Received message :", data);
+
+      if (data.status === 200) {
+        addMessage(data.message, style.left);
+      } else {
+        alert(data.message);
+      }
+    };
+
+    ws.onclose = () => {
+      console.log("Disconnected from websocket server");
+    };
+  }, []);
+
+  // function to add message block to chats
+  const addMessage = (message: string, className: string) => {
+    const chats = document.querySelector(`.${style.chats}`);
+    const div = document.createElement("div");
+
+    div.innerText = message;
+    div.classList.add(style.message);
+    div.classList.add(className);
+    chats?.appendChild(div);
+  };
+
+  // function to send messages
   const sendMessage = (e: any) => {
     e.preventDefault();
 
-    console.log("sending message");
+    if (!ws) {
+      alert("Connection not established yet!");
+      return;
+    }
+
+    const message = document.querySelector(
+      `.${style.input} input`
+    ) as HTMLInputElement;
+
+    ws.send(message.value);
+    addMessage(message.value, style.right);
+
+    message.value = "";
   };
 
   return (
@@ -17,23 +78,10 @@ const Chat = () => {
       </div>
 
       <div className={style.box}>
-        <div className={style.chats}>
-          <div className={`${style.message} ${style.right}`}>
-            Hello, how you doin?
-          </div>
-          <div className={`${style.message} ${style.left}`}>
-            yeah I'm doin fantatic
-          </div>
-          <div className={`${style.message} ${style.right}`}>
-            ohh that's great
-          </div>
-          <div className={`${style.message} ${style.left}`}>
-            yup, what about you?
-          </div>
-        </div>
+        <div className={style.chats}></div>
 
         <form className={style.input} onSubmit={sendMessage}>
-          <input type="text" placeholder="type message here..." />
+          <input type="text" placeholder="type message here..." required />
           <button type="submit">
             <img src={send} alt="send" />
           </button>
