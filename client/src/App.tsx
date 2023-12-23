@@ -1,6 +1,8 @@
 import style from "./assets/styles/app.module.css";
 import Home from "./components/Home";
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 function App() {
   return (
     <div className={style.app}>
@@ -9,7 +11,12 @@ function App() {
         <p>CONNECTING STUDENTS, CREATING COMMUNITY!</p>
       </header>
 
-      <Home />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/chat" element={<h1>Wecome to chat</h1>}></Route>
+        </Routes>
+      </BrowserRouter>
 
       <footer className={style.footer}>
         <ul>
