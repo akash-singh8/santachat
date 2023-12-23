@@ -1,0 +1,128 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px;
+  min-height: 680px;
+  max-height: 800px;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.top {
+  border: 2px solid #cfcfcf;
+  border-bottom-width: 1px;
+  border-start-start-radius: 26px;
+  border-start-end-radius: 26px;
+  background-color: #eeeeee;
+  display: flex;
+  align-items: center;
+  column-gap: 7px;
+  padding-left: 28px;
+  height: 42px;
+  width: 100%;
+}
+
+.top div {
+  border-radius: 50%;
+  margin-bottom: -2px;
+  height: 17px;
+  width: 17px;
+}
+
+.box {
+  border: 2px solid #cfcfcf;
+  border-top-width: 0;
+  background-color: #fafafa;
+  border-bottom-left-radius: 26px;
+  border-bottom-right-radius: 26px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  row-gap: 24px;
+  padding: 0 34px 24px;
+}
+
+.chats {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  flex-direction: column-reverse;
+}
+
+.message {
+  border: 2px solid #efefef;
+  border-radius: 20px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  max-width: 65%;
+  margin: 4px 0;
+  padding: 12px 28px;
+}
+
+.right {
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+  background-color: white;
+  color: var(--primary-text);
+}
+
+.left {
+  align-self: flex-start;
+  border-top-left-radius: 0;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.input {
+  background-color: white;
+  border: 2px solid #eaeaea;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 18px;
+  padding: 7px 20px 7px 28px;
+  width: 66%;
+}
+
+.input input,
+.input button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.input input {
+  color: var(--primary-text);
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  flex: 1;
+
+  letter-spacing: 0.8px;
+}
+
+.input input::placeholder {
+  color: #e2e2e2;
+}
+
+.input button {
+  cursor: pointer;
+}
+
+.input img {
+  height: 34px;
+  margin-bottom: -2px;
+}
+
+.input button:hover {
+  transform: translateX(-2px);
+}
+
+.input button:active {
+  transform: translateX(4px);
+}

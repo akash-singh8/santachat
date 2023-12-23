@@ -1,5 +1,6 @@
 import style from "./assets/styles/app.module.css";
 import Home from "./components/Home";
+import Chat from "./components/Chat";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -14,7 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/chat" element={<h1>Wecome to chat</h1>}></Route>
+          <Route path="/chat" element={<Chat />}></Route>
         </Routes>
       </BrowserRouter>
 
