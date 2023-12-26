@@ -22,6 +22,9 @@ export const verifyLink = async (req: Request, res: Response) => {
   // also that's where we need to provide a auth token to the user
   try {
     const user = jwt.verify(token, process.env.JWT_SECRET!) as jwt.JwtPayload;
+    const authToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET!, {
+      expiresIn: "21d",
+    });
 
     const upsertUser = await prisma.user.upsert({
       where: {
@@ -37,7 +40,9 @@ export const verifyLink = async (req: Request, res: Response) => {
     });
     console.log(upsertUser);
 
-    res.status(200).json({ message: "Successfully Verified Email." });
+    res
+      .status(200)
+      .json({ message: "Successfully Verified Email.", authToken });
   } catch (err) {
     if (err instanceof jwt.JsonWebTokenError) {
       res.status(401).json({ message: "Invalid or Expired token!" });
