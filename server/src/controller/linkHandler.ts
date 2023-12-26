@@ -1,9 +1,11 @@
 import jwt from "jsonwebtoken";
 
 export const generateLink = (email: string) => {
-  const link = jwt.sign({ email }, process.env.JWT_LINK_SECRET!, {
+  const token = jwt.sign({ email }, process.env.JWT_SECRET!, {
     expiresIn: "5m",
   });
 
-  return `${process.env.CLIENT_BASE_URL!}/verify?user=${link}}`;
+  const link = `${process.env.CLIENT_BASE_URL!}/verify?user=${token}`;
+
+  return link;
 };
