@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { prisma } from "../index";
 
 export const generateLink = (email: string) => {
   const token = jwt.sign({ email }, process.env.JWT_SECRET!, {
@@ -18,16 +19,32 @@ export const verifyLink = async (req: Request, res: Response) => {
     return res.status(401).json({ message: "Unauthorized!" });
   }
 
+  // also that's where we need to provide a auth token to the user
   try {
     const user = jwt.verify(token, process.env.JWT_SECRET!) as jwt.JwtPayload;
-    console.log(user.email);
 
-    // this is right place to store user in the database
-    // also that's where we need to provide a auth token to the user
+    const upsertUser = await prisma.user.upsert({
+      where: {
+        email: user.email,
+      },
+      update: {
+        createdAt: new Date(),
+      },
+      create: {
+        email: user.email,
+        createdAt: new Date(),
+      },
+    });
+    console.log(upsertUser);
+
     res.status(200).json({ message: "Successfully Verified Email." });
   } catch (err) {
-    res
-      .status(401)
-      .json({ message: "Unauthorized, Invalid or Expired token!" });
+    if (err instanceof jwt.JsonWebTokenError) {
+      res.status(401).json({ message: "Invalid or Expired token!" });
+    } else {
+      res
+        .status(500)
+        .json({ message: "Server side error on link verification!" });
+    }
   }
 };
