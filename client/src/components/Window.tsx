@@ -1,10 +1,24 @@
 import style from "../assets/styles/window.module.css";
+import { useSetRecoilState } from "recoil";
+import popState from "../store/popup";
 
-const Window = ({ children }: any) => {
+const Window = ({ children, type }: any) => {
+  const setPopup = useSetRecoilState(popState);
+
+  const closeHandler = () => {
+    if (type === "popup") {
+      setPopup(false);
+    }
+  };
+
   return (
     <div className={style.window}>
       <div className={style.top}>
-        <div style={{ backgroundColor: "#fa5555" }}></div>
+        <div
+          style={{ backgroundColor: "#fa5555" }}
+          onClick={closeHandler}
+          title="close"
+        ></div>
         <div style={{ backgroundColor: "#efd448" }}></div>
         <div style={{ backgroundColor: "#59df44" }}></div>
       </div>
