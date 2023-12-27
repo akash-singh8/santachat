@@ -1,6 +1,7 @@
 import style from "./assets/styles/app.module.css";
 import Home from "./components/Home";
 import Chat from "./components/Chat";
+import Popup from "./components/Popup";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -11,6 +12,8 @@ function App() {
         <h1>SANTaCHAT</h1>
         <p>CONNECTING STUDENTS, CREATING COMMUNITY!</p>
       </header>
+
+      <Popup />
 
       <BrowserRouter>
         <Routes>
