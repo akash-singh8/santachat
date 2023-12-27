@@ -1,4 +1,5 @@
 import style from "../assets/styles/chat.module.css";
+import Window from "./Window";
 import send from "../assets/images/send.png";
 import { useEffect } from "react";
 
@@ -70,14 +71,8 @@ const Chat = () => {
   };
 
   return (
-    <main className={style.chat}>
-      <div className={style.top}>
-        <div style={{ backgroundColor: "#fa5555" }}></div>
-        <div style={{ backgroundColor: "#efd448" }}></div>
-        <div style={{ backgroundColor: "#59df44" }}></div>
-      </div>
-
-      <div className={style.box}>
+    <Window>
+      <main className={style.chat}>
         <div className={style.chats}></div>
 
         <form className={style.input} onSubmit={sendMessage}>
@@ -86,8 +81,8 @@ const Chat = () => {
             <img src={send} alt="send" />
           </button>
         </form>
-      </div>
-    </main>
+      </main>
+    </Window>
   );
 };
 

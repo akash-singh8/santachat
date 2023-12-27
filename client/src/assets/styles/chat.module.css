@@ -1,49 +1,10 @@
 .chat {
+  align-items: center;
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 20px;
-  min-height: 680px;
-  max-height: 800px;
-  max-width: 1000px;
   width: 100%;
-  margin: 0 auto;
-}
-
-.top {
-  border: 2px solid #cfcfcf;
-  border-bottom-width: 1px;
-  border-start-start-radius: 26px;
-  border-start-end-radius: 26px;
-  background-color: #eeeeee;
-  display: flex;
-  align-items: center;
-  column-gap: 7px;
-  padding-left: 28px;
-  height: 42px;
-  width: 100%;
-}
-
-.top div {
-  border-radius: 50%;
-  margin-bottom: -2px;
-  height: 17px;
-  width: 17px;
-}
-
-.box {
-  border: 2px solid #cfcfcf;
-  border-top-width: 0;
-  background-color: #fafafa;
-  border-bottom-left-radius: 26px;
-  border-bottom-right-radius: 26px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
   row-gap: 24px;
-  padding: 0 34px 24px;
 }
 
 .chats {
