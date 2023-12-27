@@ -13,7 +13,9 @@ const Chat = () => {
       return;
     }
 
-    ws = new WebSocket(`ws://localhost:3053?auth=${authToken}`);
+    ws = new WebSocket(
+      `${import.meta.env.VITE_BACKEND_WS_URL}?auth=${authToken}`
+    );
 
     ws.onopen = () => {
       console.log("Connected to websocket server");
