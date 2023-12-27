@@ -5,12 +5,8 @@ const Home = () => {
   return (
     <main className={style.home}>
       <p className={style.description}>
-        Empower your college experience with SANTaCHAT! Engage in random
-        one-on-one conversations with fellow students, broaden your social
-        circle, and experience the joy of connecting with your college
-        community.
-        <br />
-        Dive into the excitement of spontaneous interactions now!
+        GET RANDOMLY MATCHED WITH SOMEONE FROM YOUR UNIVERSITY AND TEXT
+        ANONYMOUSLY
       </p>
 
       <button className="button">Get Started &#x27F6;</button>
