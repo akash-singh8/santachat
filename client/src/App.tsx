@@ -2,6 +2,7 @@ import style from "./assets/styles/app.module.css";
 import Home from "./components/Home";
 import Chat from "./components/Chat";
 import Popup from "./components/Popup";
+import Verify from "./components/Verify";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/chat" element={<Chat />}></Route>
+          <Route path="/verify" element={<Verify />}></Route>
         </Routes>
       </BrowserRouter>
 

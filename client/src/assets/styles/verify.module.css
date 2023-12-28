@@ -1,0 +1,16 @@
+.verify > div {
+  max-width: 600px;
+  padding: 80px 20px;
+}
+
+.message {
+  color: var(--primary-text);
+  font-size: 1.2em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
+  height: 100%;
+  margin: auto;
+  flex: 1;
+  width: 100%;
+}
