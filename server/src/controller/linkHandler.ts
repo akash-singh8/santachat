@@ -47,6 +47,7 @@ export const verifyLink = async (req: Request, res: Response) => {
     if (err instanceof jwt.JsonWebTokenError) {
       res.status(401).json({ message: "Invalid or Expired token!" });
     } else {
+      console.error(err);
       res
         .status(500)
         .json({ message: "Server side error on link verification!" });
