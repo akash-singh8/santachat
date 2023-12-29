@@ -2,8 +2,11 @@ import style from "../assets/styles/chat.module.css";
 import Window from "./Window";
 import send from "../assets/images/send.png";
 import { useEffect } from "react";
+import userInterestState from "../store/interests";
+import { useRecoilValue } from "recoil";
 
 const Chat = () => {
+  const userInterest = useRecoilValue(userInterestState);
   let ws: WebSocket;
 
   useEffect(() => {
@@ -14,7 +17,9 @@ const Chat = () => {
     }
 
     ws = new WebSocket(
-      `${import.meta.env.VITE_BACKEND_WS_URL}?auth=${authToken}`
+      `${
+        import.meta.env.VITE_BACKEND_WS_URL
+      }?auth=${authToken}&interests=${userInterest}`
     );
 
     ws.onopen = () => {

@@ -1,8 +1,10 @@
 import style from "../assets/styles/popup.module.css";
 import Window from "./Window";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import popState from "../store/popup";
+import userInterestState from "../store/interests";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const VerifyPop = () => {
   const verifyUser = async (e: any) => {
@@ -53,6 +55,10 @@ const VerifyPop = () => {
 };
 
 const WaitingRoom = () => {
+  const setPopup = useSetRecoilState(popState);
+  const setUserInterest = useSetRecoilState(userInterestState);
+  const navigate = useNavigate();
+
   const userInterest = {
     Clubs: false,
     Rooms: false,
@@ -76,6 +82,23 @@ const WaitingRoom = () => {
       });
     });
   }, []);
+
+  const startChat = () => {
+    const interests = Object.keys(userInterest);
+    let interestStr = "";
+
+    interests.forEach((interest) => {
+      // @ts-ignore
+      if (userInterest[interest]) {
+        interestStr += interest + "_";
+      }
+    });
+
+    const len = interestStr.length;
+    setUserInterest(len ? interestStr.slice(0, len - 1) : "");
+    setPopup(false);
+    navigate("/chat");
+  };
 
   return (
     <div className={style.waiting}>
@@ -115,7 +138,9 @@ const WaitingRoom = () => {
       </div>
 
       <div className={style.start_container}>
-        <button className={style.start}>START</button>
+        <button className={style.start} onClick={startChat}>
+          START
+        </button>
       </div>
     </div>
   );
