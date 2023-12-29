@@ -4,7 +4,7 @@ import Chat from "./components/Chat";
 import Popup from "./components/Popup";
 import Verify from "./components/Verify";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -16,13 +16,11 @@ function App() {
 
       <Popup />
 
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/chat" element={<Chat />}></Route>
-          <Route path="/verify" element={<Verify />}></Route>
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/chat" element={<Chat />}></Route>
+        <Route path="/verify" element={<Verify />}></Route>
+      </Routes>
 
       <footer className={style.footer}>
         <ul>
