@@ -46,6 +46,9 @@ const Verify = () => {
       if (res.ok) {
         localStorage.setItem("authToken", data.authToken);
         setMessage("Successfully Verified 🎊🎉.");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
       } else {
         setMessage("Invalid Verification Link!");
       }
