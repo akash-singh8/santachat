@@ -4,10 +4,11 @@ import popState from "../store/popup";
 
 const Window = ({ children, type }: any) => {
   const setPopup = useSetRecoilState(popState);
-
   const closeHandler = () => {
     if (type === "popup") {
       setPopup(false);
+    } else {
+      window.location.href = "/";
     }
   };
 
