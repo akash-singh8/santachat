@@ -38,7 +38,7 @@ const initiateConnection = (
     ws: ws,
   };
 
-  if (userInterest) {
+  if (userInterest && userInterest[0].length) {
     // Connecting two user with similar interest
     let partnerFound = false;
 
