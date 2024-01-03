@@ -49,13 +49,14 @@ const Chat = () => {
 
   // function to add message block to chats
   const addMessage = (message: string, className: string) => {
-    const chats = document.querySelector(`.${style.chats}`);
+    const chats = document.querySelector(`.${style.chats}`) as HTMLDivElement;
     const div = document.createElement("div");
 
     div.innerText = message;
     div.classList.add(style.message);
     div.classList.add(className);
-    chats?.appendChild(div);
+    chats.appendChild(div);
+    chats.scrollTop = chats?.scrollHeight;
   };
 
   // function to send messages

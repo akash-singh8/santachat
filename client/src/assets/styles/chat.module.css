@@ -10,8 +10,26 @@
 .chats {
   display: flex;
   flex: 1;
+  max-height: 500px;
+  flex-direction: column;
+  overflow-y: scroll;
   width: 100%;
-  flex-direction: column-reverse;
+  padding-top: 28px;
+  padding-right: 48px;
+  margin-right: -66px;
+  z-index: 100;
+}
+
+.chats::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chats::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.chats::-webkit-scrollbar-thumb {
+  background: #cccccc;
 }
 
 .message {
