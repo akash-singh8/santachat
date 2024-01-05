@@ -39,61 +39,39 @@ const initiateConnection = (
   };
 
   if (userInterest && userInterest[0].length) {
-    // Connecting two user with similar interest
-    let partnerFound = false;
-
-    userInterest.forEach((interest) => {
-      const availableClients = Object.keys(waitingClients_Interest[interest]);
-
-      if (availableClients.length > 0) {
-        const partner = availableClients[0];
-        client[user].partner = partner;
-        client[partner].partner = user;
-
-        // remove the partner from all the waitingClients object
-        const partnerInterest = client[partner].interests;
-        partnerInterest?.forEach((interest) => {
-          delete waitingClients_Interest[interest][partner];
-        });
-
-        client[user].ws.send(
-          JSON.stringify({
-            status: 202,
-            message: `Partner found: ${partner}`,
-          })
-        );
-        client[partner].ws.send(
-          JSON.stringify({
-            status: 202,
-            message: `Partner found: ${user}`,
-          })
-        );
-
-        partnerFound = true;
-        return;
-      }
-    });
-
-    // store current user with their interests, in waitingClients object
-    if (!partnerFound) {
-      userInterest?.forEach((interest) => {
-        waitingClients_Interest[interest][user] = true;
-      });
-      ws.send(
-        JSON.stringify({
-          status: 201,
-          message: "Waiting for a partner!",
-        })
-      );
-    }
+    handleUserWithInterest(user, userInterest, ws);
   } else {
-    // connecting two users with no interests
-    const partner = waitingClients_NoInterest.pop();
-    if (partner) {
+    handleUserWithNoInterest(user, ws);
+  }
+
+  console.log("Client connected: ", user);
+
+  return user;
+};
+
+export const handleUserWithInterest = (
+  user: string,
+  userInterest: string[],
+  ws: WebSocket
+) => {
+  // Connecting two user with similar interest
+  let partnerFound = false;
+
+  userInterest.forEach((interest) => {
+    const availableClients = Object.keys(waitingClients_Interest[interest]);
+
+    if (availableClients.length > 0) {
+      const partner = availableClients[0];
       client[user].partner = partner;
       client[partner].partner = user;
 
-      client[user].ws.send(
+      // remove the partner from all the waitingClients object
+      const partnerInterest = client[partner].interests;
+      partnerInterest?.forEach((interest) => {
+        delete waitingClients_Interest[interest][partner];
+      });
+
+      ws.send(
         JSON.stringify({
           status: 202,
           message: `Partner found: ${partner}`,
@@ -105,20 +83,55 @@ const initiateConnection = (
           message: `Partner found: ${user}`,
         })
       );
-    } else {
-      waitingClients_NoInterest.push(user);
-      ws.send(
-        JSON.stringify({
-          status: 201,
-          message: "Waiting for a partner!",
-        })
-      );
+
+      partnerFound = true;
+      return;
     }
+  });
+
+  // store current user with their interests, in waitingClients object
+  if (!partnerFound) {
+    userInterest?.forEach((interest) => {
+      waitingClients_Interest[interest][user] = true;
+    });
+    ws.send(
+      JSON.stringify({
+        status: 201,
+        message: "Waiting for a partner!",
+      })
+    );
   }
+};
 
-  console.log("Client connected: ", user);
+export const handleUserWithNoInterest = (user: string, ws: WebSocket) => {
+  // connecting two users with no interests
+  const partner = waitingClients_NoInterest.pop();
+  if (partner) {
+    client[user].partner = partner;
+    client[partner].partner = user;
 
-  return user;
+    ws.send(
+      JSON.stringify({
+        status: 202,
+        message: `Partner found: ${partner}`,
+      })
+    );
+
+    client[partner].ws.send(
+      JSON.stringify({
+        status: 202,
+        message: `Partner found: ${user}`,
+      })
+    );
+  } else {
+    waitingClients_NoInterest.push(user);
+    ws.send(
+      JSON.stringify({
+        status: 201,
+        message: "Waiting for a partner!",
+      })
+    );
+  }
 };
 
 export default initiateConnection;

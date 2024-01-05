@@ -85,18 +85,22 @@ const wsConnectionHandler = (ws: WebSocket, req: http.IncomingMessage) => {
 
   ws.on("close", () => {
     totalClients -= 1;
+
     // we don't need to remove both of the clients, instead we'll remove the current client and add the other client in waiting list
-    if (!client[user]?.partner) {
-      const userInterest = client[user].interests;
-      if (userInterest) {
-        userInterest.forEach((interest) => {
-          delete waitingClients_Interest[interest][user];
-        });
-      } else {
-        waitingClients_NoInterest.pop();
-      }
+    const userInterest = client[user].interests;
+
+    if (userInterest && userInterest[0].length) {
+      userInterest.forEach((interest) => {
+        delete waitingClients_Interest[interest][user];
+      });
+    } else {
+      waitingClients_NoInterest.pop();
     }
+
     wsCloseHandler(user);
+
+    delete client[user];
+    console.log(`Client disconnected: ${user}`);
   });
 };
 
