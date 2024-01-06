@@ -30,11 +30,12 @@ model Chat {
 }
 
 model Feedback {
-  id       String @id @default(uuid())
-  user     String
-  fromUser User   @relation("user", fields: [user], references: [email])
-  rating   Int
-  feedback String
-  to       String
-  toUser   User   @relation("to", fields: [to], references: [email])
+  id        String   @id @default(uuid())
+  user      String
+  fromUser  User     @relation("user", fields: [user], references: [email])
+  rating    Int
+  feedback  String
+  createdAt DateTime @default(now())
+  to        String
+  toUser    User     @relation("to", fields: [to], references: [email])
 }
