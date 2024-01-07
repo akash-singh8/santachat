@@ -31,3 +31,27 @@ export const storeFeedback = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server Side Error!" });
   }
 };
+
+export const fetchFeedbacks = async (req: Request, res: Response) => {
+  const user = req.body.user;
+
+  try {
+    const feedbacks = await prisma.feedback.findMany({
+      select: {
+        id: true,
+        feedback: true,
+        rating: true,
+        createdAt: true,
+      },
+      where: {
+        user: user,
+      },
+    });
+
+    res.json({ feedbacks });
+  } catch (e) {
+    console.log("Error on fetching feedbacks");
+    console.error(e);
+    res.status(500).json({ message: "Server Side Error!" });
+  }
+};
