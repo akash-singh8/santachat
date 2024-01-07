@@ -1,11 +1,14 @@
 import express from "express";
 import http from "http";
+import cors from "cors";
+import { PrismaClient } from "@prisma/client";
 import { WebSocketServer } from "ws";
 import { config } from "dotenv";
-import { PrismaClient } from "@prisma/client";
+
 import wsConnectionHandler from "./controller/ws";
 import authRouter from "./routes/auth";
-import cors from "cors";
+import authorizeUser from "./middleware/auth";
+import feedbackRouter from "./routes/feedback";
 
 config();
 const app = express();
@@ -16,6 +19,7 @@ app.use(
   })
 );
 app.use("/auth", authRouter);
+app.use("/feedback", authorizeUser, feedbackRouter);
 
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3053;
