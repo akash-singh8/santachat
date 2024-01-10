@@ -20,7 +20,7 @@ const authorizeUser = (req: Request, res: Response, next: NextFunction) => {
     return res.status(403).json({ message: "Invalid or Expired Token!" });
   }
 
-  req.body.user = user;
+  res.locals.user = user;
   next();
 };
 
