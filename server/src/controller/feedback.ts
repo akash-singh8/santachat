@@ -21,7 +21,7 @@ export const storeFeedback = async (req: Request, res: Response) => {
 
   try {
     await prisma.feedback.create({
-      data,
+      data: validData.data,
     });
 
     res.status(201).json({ message: "Feedback submitted successfully!" });
