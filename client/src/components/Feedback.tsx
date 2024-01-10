@@ -1,9 +1,10 @@
 import popStyle from "../assets/styles/popup.module.css";
 import style from "../assets/styles/feedback.module.css";
 import Window from "./Window";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Feedback = () => {
+  const [rating, setRating] = useState(0);
   const starsList = [];
   for (let i = 0; i < 5; i++) {
     starsList.push(
@@ -27,7 +28,10 @@ const Feedback = () => {
     stars.forEach((star) => {
       star.addEventListener("click", (e) => {
         // @ts-ignore
-        const index = e.target.dataset.ind;
+        const index = parseInt(e.target.dataset.ind);
+
+        if (index) setRating(index + 1);
+        else setRating(0);
 
         for (let i = 0; i < 5; i++) {
           // @ts-ignore
@@ -41,6 +45,33 @@ const Feedback = () => {
       });
     });
   }, []);
+
+  const handleSubmit = async () => {
+    const feedback = document.querySelector(
+      `.${style.feedback} input`
+    ) as HTMLInputElement;
+    try {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/feedback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: localStorage.getItem("authToken")!,
+        },
+        body: JSON.stringify({
+          feedback: feedback.value,
+          rating: rating,
+          time: new Date(),
+        }),
+      });
+
+      const data = await res.json();
+
+      alert(data.message);
+    } catch (e) {
+      console.log(e);
+      alert("Unable to send feedback at present moment!");
+    }
+  };
 
   return (
     <div className={popStyle.container}>
@@ -65,7 +96,7 @@ const Feedback = () => {
 
             <div className={style.buttons}>
               <button style={{ color: "#CDCDCD" }}>CANCLE</button>
-              <button>SUBMIT</button>
+              <button onClick={handleSubmit}>SUBMIT</button>
             </div>
           </div>
         </Window>

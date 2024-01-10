@@ -5,7 +5,6 @@ import Popup from "./components/Popup";
 import Verify from "./components/Verify";
 
 import { Routes, Route } from "react-router-dom";
-import Feedback from "./components/Feedback";
 
 function App() {
   return (
@@ -15,7 +14,6 @@ function App() {
         <p>CONNECTING STUDENTS, CREATING COMMUNITY!</p>
       </header>
 
-      <Feedback />
       <Popup />
 
       <Routes>
