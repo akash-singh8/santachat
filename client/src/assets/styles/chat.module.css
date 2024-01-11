@@ -56,16 +56,22 @@
   color: white;
 }
 
-.input {
+.input_container {
   background-color: white;
   border: 2px solid #eaeaea;
   border-radius: 20px;
   display: flex;
+  flex-direction: column-reverse;
+  row-gap: 8px;
+  padding: 7px 20px 7px 20px;
+  width: 66%;
+}
+
+.input {
+  display: flex;
   align-items: center;
   justify-content: space-between;
   column-gap: 18px;
-  padding: 7px 20px 7px 28px;
-  width: 66%;
 }
 
 .input input,
@@ -104,4 +110,22 @@
 
 .input button:active {
   transform: translateX(4px);
+}
+
+.image {
+  cursor: pointer;
+}
+
+.image img {
+  width: 26px;
+}
+
+.image input[type="file"] {
+  display: none;
+}
+
+.add_image {
+  border-radius: 6px;
+  border: 1px solid #eaeaea;
+  width: 100px;
 }

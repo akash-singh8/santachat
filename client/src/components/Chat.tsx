@@ -4,6 +4,7 @@ import send from "../assets/images/send.png";
 import { useEffect } from "react";
 import userInterestState from "../store/interests";
 import { useRecoilValue } from "recoil";
+import add_image from "../assets/images/add_image.svg";
 
 const Chat = () => {
   const userInterest = useRecoilValue(userInterestState);
@@ -78,17 +79,51 @@ const Chat = () => {
     message.value = "";
   };
 
+  const addInputImage = (e: any) => {
+    const image = e.target.files[0];
+    const input = document.querySelector(
+      `.${style.input_container}`
+    ) as HTMLDivElement;
+    const prevImage = input.querySelector(`.${style.add_image}`);
+
+    if (!image && prevImage) {
+      input.removeChild(prevImage);
+      return;
+    }
+
+    const url = URL.createObjectURL(image);
+
+    const imageElement = document.createElement("img");
+    imageElement.setAttribute("alt", "image to upload");
+    imageElement.setAttribute("src", url);
+    imageElement.classList.add(style.add_image);
+
+    if (prevImage) input.removeChild(prevImage);
+    input.appendChild(imageElement);
+  };
+
   return (
     <Window>
       <main className={style.chat}>
         <div className={style.chats}></div>
 
-        <form className={style.input} onSubmit={sendMessage}>
-          <input type="text" placeholder="type message here..." required />
-          <button type="submit">
-            <img src={send} alt="send" />
-          </button>
-        </form>
+        <div className={style.input_container}>
+          <form className={style.input} onSubmit={sendMessage}>
+            <label htmlFor="image-upload" className={style.image}>
+              <input
+                id="image-upload"
+                type="file"
+                accept="image/*"
+                onChange={addInputImage}
+              />
+              <img src={add_image} alt="add image" title="Add Image" />
+            </label>
+            <input type="text" placeholder="type message here..." />
+            <button type="submit">
+              <img src={send} alt="send" />
+            </button>
+          </form>
+        </div>
       </main>
     </Window>
   );
