@@ -4,6 +4,7 @@ import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 import { WebSocketServer } from "ws";
 import { config } from "dotenv";
+import { createClient } from "redis";
 
 import wsConnectionHandler from "./controller/ws";
 import authRouter from "./routes/auth";
@@ -25,6 +26,12 @@ app.use("/feedback", authorizeUser, feedbackRouter);
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3053;
 export const prisma = new PrismaClient();
+
+export const redisClient = createClient();
+redisClient
+  .connect()
+  .then(() => console.log("Connected to redis server!"))
+  .catch((err) => console.log("Redis Client Error: ", err));
 
 const wss = new WebSocketServer({ server });
 
