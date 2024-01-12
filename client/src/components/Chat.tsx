@@ -31,13 +31,14 @@ const Chat = () => {
       type Message = {
         status: number;
         message: string;
+        image?: string;
       };
 
       const data: Message = JSON.parse(event.data);
       console.log("Received message :", data);
 
       if (data.status === 200) {
-        addMessage(data.message, style.left);
+        addMessage(data.message, style.left, data.image);
       } else {
         alert(data.message);
       }
@@ -49,13 +50,38 @@ const Chat = () => {
   }, []);
 
   // function to add message block to chats
-  const addMessage = (message: string, className: string) => {
+  const addMessage = async (
+    message: string,
+    className: string,
+    image?: string
+  ) => {
     const chats = document.querySelector(`.${style.chats}`) as HTMLDivElement;
     const div = document.createElement("div");
 
-    div.innerText = message;
     div.classList.add(style.message);
     div.classList.add(className);
+
+    if (image) {
+      const fetchImage = await fetch(image);
+      const blob = await fetchImage.blob();
+      const url = URL.createObjectURL(blob);
+
+      const imageElement = document.createElement("img");
+      imageElement.classList.add(style.add_image);
+      imageElement.setAttribute("src", image);
+
+      const a = document.createElement("a");
+      a.setAttribute("href", url);
+      a.setAttribute("target", "_blank");
+      a.appendChild(imageElement);
+
+      div.appendChild(a);
+    }
+
+    const p = document.createElement("p");
+    p.innerText = message;
+    div.appendChild(p);
+
     chats.appendChild(div);
     chats.scrollTop = chats?.scrollHeight;
   };
@@ -69,14 +95,42 @@ const Chat = () => {
       return;
     }
 
-    const message = document.querySelector(
-      `.${style.input} input`
+    const messageInput = document.querySelector(
+      `.${style.input} input[type="text"]`
     ) as HTMLInputElement;
 
-    ws.send(message.value);
-    addMessage(message.value, style.right);
+    const image = document.querySelector(`.${style.image} input`);
+    const messageObj = {
+      message: messageInput.value,
+      image: "",
+    };
 
-    message.value = "";
+    // @ts-ignore
+    const imageFile = image.files[0];
+    if (imageFile) {
+      const fileReader = new FileReader();
+      fileReader.onload = async function (e: any) {
+        const input = document.querySelector(
+          `.${style.input_container}`
+        ) as HTMLDivElement;
+
+        const prevImage = input.querySelector(`.${style.add_image}`);
+        input.removeChild(prevImage!);
+
+        messageObj.image = e.target.result;
+        await addMessage(messageInput.value, style.right, e.target.result);
+        ws.send(JSON.stringify(messageObj));
+        messageInput.value = "";
+        // @ts-ignore
+        image.value = "";
+      };
+
+      fileReader.readAsDataURL(imageFile);
+    } else {
+      addMessage(messageInput.value, style.right);
+      ws.send(JSON.stringify(messageObj));
+      messageInput.value = "";
+    }
   };
 
   const addInputImage = (e: any) => {
@@ -118,7 +172,8 @@ const Chat = () => {
               />
               <img src={add_image} alt="add image" title="Add Image" />
             </label>
-            <input type="text" placeholder="type message here..." />
+
+            <input type="text" placeholder="type message here..." required />
             <button type="submit">
               <img src={send} alt="send" />
             </button>
