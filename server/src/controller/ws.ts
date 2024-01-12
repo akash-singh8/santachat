@@ -60,11 +60,12 @@ const wsConnectionHandler = (ws: WebSocket, req: http.IncomingMessage) => {
       );
     }
 
-    const msg = message.toString();
+    const msg = JSON.parse(message.toString());
     client[partner].ws.send(
       JSON.stringify({
         status: 200,
-        message: msg,
+        message: msg.message,
+        image: msg.image,
       })
     );
 
@@ -72,7 +73,7 @@ const wsConnectionHandler = (ws: WebSocket, req: http.IncomingMessage) => {
     try {
       await prisma.chat.create({
         data: {
-          message: msg,
+          message: msg.message,
           fromUser: partner,
           toUser: user,
         },
