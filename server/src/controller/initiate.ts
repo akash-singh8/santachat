@@ -6,6 +6,7 @@ import {
   waitingClients_NoInterest,
   waitingClients_Interest,
 } from "./ws";
+import { redisClient } from "..";
 
 const initiateConnection = (
   auth: string,
@@ -65,6 +66,10 @@ export const handleUserWithInterest = (
       client[user].partner = partner;
       client[partner].partner = user;
 
+      // store partener in cache
+      redisClient.set(user, partner);
+      redisClient.set(partner, user);
+
       // remove the partner from all the waitingClients object
       const partnerInterest = client[partner].interests;
       partnerInterest?.forEach((interest) => {
@@ -109,6 +114,9 @@ export const handleUserWithNoInterest = (user: string, ws: WebSocket) => {
   if (partner) {
     client[user].partner = partner;
     client[partner].partner = user;
+
+    redisClient.set(user, partner);
+    redisClient.set(partner, user);
 
     ws.send(
       JSON.stringify({

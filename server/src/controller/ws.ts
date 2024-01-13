@@ -2,7 +2,7 @@ import http from "http";
 import { WebSocket } from "ws";
 import { disconnectClient, wsCloseHandler } from "./close";
 import initiateConnection from "./initiate";
-import { prisma } from "../index";
+import { prisma, redisClient } from "../index";
 
 type wsClients = {
   [name: string]: {
@@ -100,6 +100,7 @@ const wsConnectionHandler = (ws: WebSocket, req: http.IncomingMessage) => {
 
     wsCloseHandler(user);
 
+    redisClient.del(user);
     delete client[user];
     console.log(`Client disconnected: ${user}`);
   });

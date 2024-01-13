@@ -1,16 +1,17 @@
 import { Request, Response } from "express";
-import { prisma } from "../index";
-import { client } from "../controller/ws";
+import { prisma, redisClient } from "../index";
 import feedbackSchema from "../validation/feedback";
 
 export const storeFeedback = async (req: Request, res: Response) => {
   const user = res.locals.user;
+  const partner = await redisClient.get(user);
+
   const data = {
     user: user,
-    to: client[user].partner,
+    to: partner,
     feedback: req.body.feedback,
     rating: parseInt(req.body.rating || "0"),
-    createdAt: new Date(req.body.time) || new Date(),
+    createdAt: req.body.time ? new Date(req.body.time) : new Date(),
   };
 
   const validData = feedbackSchema.safeParse(data);
