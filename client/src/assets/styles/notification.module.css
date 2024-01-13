@@ -1,0 +1,26 @@
+.notification {
+  background-color: var(--primary-color);
+  border-radius: 18px;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.412);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  column-gap: 12px;
+  padding: 14px 20px;
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.notification p {
+  flex: 1;
+  text-align: center;
+}
+
+.notification img {
+  cursor: pointer;
+}

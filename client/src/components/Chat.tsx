@@ -6,8 +6,10 @@ import userInterestState from "../store/interests";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import add_image from "../assets/images/add_image.svg";
 import feedbackPop from "../store/feedback";
+import Notify from "../store/notification";
 
 const Chat = () => {
+  const setNotifcation = useSetRecoilState(Notify);
   const setFeedback = useSetRecoilState(feedbackPop);
   const userInterest = useRecoilValue(userInterestState);
   let ws: WebSocket;
@@ -46,7 +48,7 @@ const Chat = () => {
       if (data.status === 200) {
         addMessage(data.message, style.left, data.image);
       } else {
-        alert(data.message);
+        setNotifcation(data.message);
       }
     };
 
