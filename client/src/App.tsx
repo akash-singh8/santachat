@@ -3,6 +3,7 @@ import Home from "./components/Home";
 import Chat from "./components/Chat";
 import Popup from "./components/Popup";
 import Verify from "./components/Verify";
+import Feedback from "./components/Feedback";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -15,6 +16,7 @@ function App() {
       </header>
 
       <Popup />
+      <Feedback />
 
       <Routes>
         <Route path="/" element={<Home />}></Route>

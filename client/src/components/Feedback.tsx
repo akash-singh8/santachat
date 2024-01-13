@@ -2,8 +2,11 @@ import popStyle from "../assets/styles/popup.module.css";
 import style from "../assets/styles/feedback.module.css";
 import Window from "./Window";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import feedbackPop from "../store/feedback";
 
 const Feedback = () => {
+  const feedback = useRecoilValue(feedbackPop);
   const [rating, setRating] = useState(0);
   const starsList = [];
   for (let i = 0; i < 5; i++) {
@@ -71,37 +74,46 @@ const Feedback = () => {
       console.log(e);
       alert("Unable to send feedback at present moment!");
     }
+
+    window.location.href = "/";
   };
 
   return (
-    <div className={popStyle.container}>
-      <div style={{ maxWidth: "628px" }}>
-        <Window>
-          <div className={style.feedback}>
-            <h2>FEEDBACK</h2>
-            <p>
-              What are somethings you assumed about the person after talking to
-              him/her
-            </p>
+    feedback && (
+      <div className={popStyle.container}>
+        <div style={{ maxWidth: "628px" }}>
+          <Window type="feedback">
+            <div className={style.feedback}>
+              <h2>FEEDBACK</h2>
+              <p>
+                What are somethings you assumed about the person after talking
+                to him/her
+              </p>
 
-            <div className={popStyle.input}>
-              <input type="text" placeholder="feedback..." />
+              <div className={popStyle.input}>
+                <input type="text" placeholder="feedback..." />
+              </div>
+
+              <ul className={style.rating}>
+                {starsList.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+
+              <div className={style.buttons}>
+                <button
+                  style={{ color: "#CDCDCD" }}
+                  onClick={() => (window.location.href = "/")}
+                >
+                  CANCLE
+                </button>
+                <button onClick={handleSubmit}>SUBMIT</button>
+              </div>
             </div>
-
-            <ul className={style.rating}>
-              {starsList.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-
-            <div className={style.buttons}>
-              <button style={{ color: "#CDCDCD" }}>CANCLE</button>
-              <button onClick={handleSubmit}>SUBMIT</button>
-            </div>
-          </div>
-        </Window>
+          </Window>
+        </div>
       </div>
-    </div>
+    )
   );
 };
 

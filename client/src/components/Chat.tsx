@@ -3,10 +3,12 @@ import Window from "./Window";
 import send from "../assets/images/send.png";
 import { useEffect } from "react";
 import userInterestState from "../store/interests";
-import { useRecoilValue } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 import add_image from "../assets/images/add_image.svg";
+import feedbackPop from "../store/feedback";
 
 const Chat = () => {
+  const setFeedback = useSetRecoilState(feedbackPop);
   const userInterest = useRecoilValue(userInterestState);
   let ws: WebSocket;
 
@@ -36,6 +38,10 @@ const Chat = () => {
 
       const data: Message = JSON.parse(event.data);
       console.log("Received message :", data);
+
+      if (data.status === 303) {
+        setFeedback(true);
+      }
 
       if (data.status === 200) {
         addMessage(data.message, style.left, data.image);

@@ -1,12 +1,17 @@
 import style from "../assets/styles/window.module.css";
 import { useSetRecoilState } from "recoil";
 import popState from "../store/popup";
+import feedbackPop from "../store/feedback";
 
 const Window = ({ children, type }: any) => {
   const setPopup = useSetRecoilState(popState);
+  const setFeedback = useSetRecoilState(feedbackPop);
+
   const closeHandler = () => {
     if (type === "popup") {
       setPopup(false);
+    } else if (type === "feedback") {
+      setFeedback(false);
     } else {
       window.location.href = "/";
     }
