@@ -17,7 +17,7 @@
   padding-top: 28px;
   padding-right: 48px;
   margin-right: -66px;
-  z-index: 100;
+  z-index: 5;
 }
 
 .chats::-webkit-scrollbar {
