@@ -7,8 +7,12 @@ import Feedback from "./components/Feedback";
 import Notification from "./components/Notification";
 
 import { Routes, Route } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import feedbackPop from "./store/feedback";
 
 function App() {
+  const feedback = useRecoilValue(feedbackPop);
+
   return (
     <div className={style.app}>
       <header className={style.header}>
@@ -17,7 +21,7 @@ function App() {
       </header>
 
       <Popup />
-      <Feedback />
+      {feedback && <Feedback />}
       <Notification />
 
       <Routes>
