@@ -12,6 +12,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import feedbackPop from "./store/feedback";
 import User from "./components/User";
 import auth from "./store/auth";
+import Header from "./components/Header";
 
 function App() {
   const feedback = useRecoilValue(feedbackPop);
@@ -24,10 +25,7 @@ function App() {
 
   return (
     <div className={style.app}>
-      <header className={style.header}>
-        <h1>SANTaCHAT</h1>
-        <p>CONNECTING STUDENTS, CREATING COMMUNITY!</p>
-      </header>
+      <Header />
 
       <Popup />
       {feedback && <Feedback />}

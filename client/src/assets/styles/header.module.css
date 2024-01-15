@@ -1,0 +1,25 @@
+.header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.header p {
+  color: var(--primary-text);
+  font-size: 11.3px;
+  font-weight: 600;
+  margin-top: -7px;
+}
+
+.profile {
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 8px;
+  width: 48px;
+  position: absolute;
+  top: 12px;
+  right: 28px;
+}

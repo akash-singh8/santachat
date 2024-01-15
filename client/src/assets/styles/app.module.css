@@ -8,20 +8,6 @@
   min-height: 100vh;
 }
 
-.header {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 40px;
-}
-
-.header p {
-  color: var(--primary-text);
-  font-size: 11.3px;
-  font-weight: 600;
-  margin-top: -7px;
-}
-
 .footer ul {
   color: var(--primary-color);
   font-family: monospace, Courier;
