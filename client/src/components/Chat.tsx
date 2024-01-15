@@ -7,15 +7,16 @@ import { useSetRecoilState, useRecoilValue } from "recoil";
 import add_image from "../assets/images/add_image.svg";
 import feedbackPop from "../store/feedback";
 import Notify from "../store/notification";
+import auth from "../store/auth";
 
 const Chat = () => {
   const setNotifcation = useSetRecoilState(Notify);
   const setFeedback = useSetRecoilState(feedbackPop);
   const userInterest = useRecoilValue(userInterestState);
+  const authToken = useRecoilValue(auth);
   let ws: WebSocket;
 
   useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
     if (!authToken) {
       alert("Please verify your identity to continue!");
       return;

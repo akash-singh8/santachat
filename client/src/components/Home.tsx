@@ -1,11 +1,12 @@
 import style from "../assets/styles/home.module.css";
 import demo_chat from "../assets/images/chat.png";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import popState from "../store/popup";
+import auth from "../store/auth";
 
 const Home = () => {
   const setPopup = useSetRecoilState(popState);
-  const logged = localStorage.getItem("authToken");
+  const logged = useRecoilValue(auth);
 
   return (
     <>

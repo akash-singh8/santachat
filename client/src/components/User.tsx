@@ -1,15 +1,19 @@
 import style from "../assets/styles/user.module.css";
 import user from "../assets/images/user.svg";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import auth from "../store/auth";
+import { useNavigate } from "react-router-dom";
 
 const User = () => {
+  const [authToken, setAuthToken] = useRecoilState(auth);
   const [data, setData] = useState<any>();
-  useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
+  const navigate = useNavigate();
 
+  useEffect(() => {
     if (!authToken) {
       alert("Please login to continue!");
-      window.location.href = "/";
+      navigate("/");
       return;
     }
 
@@ -31,7 +35,8 @@ const User = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
-    window.location.href = "/";
+    setAuthToken("");
+    navigate("/");
   };
 
   return (

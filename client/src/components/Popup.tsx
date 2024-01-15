@@ -5,6 +5,7 @@ import popState from "../store/popup";
 import userInterestState from "../store/interests";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import auth from "../store/auth";
 
 const VerifyPop = () => {
   const verifyUser = async (e: any) => {
@@ -148,7 +149,7 @@ const WaitingRoom = () => {
 
 const Popup = () => {
   const popup = useRecoilValue(popState);
-  const logged = localStorage.getItem("authToken");
+  const logged = useRecoilValue(auth);
 
   return (
     popup && (

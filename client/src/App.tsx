@@ -7,12 +7,20 @@ import Feedback from "./components/Feedback";
 import Notification from "./components/Notification";
 
 import { Routes, Route } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useEffect } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import feedbackPop from "./store/feedback";
 import User from "./components/User";
+import auth from "./store/auth";
 
 function App() {
   const feedback = useRecoilValue(feedbackPop);
+  const setAuth = useSetRecoilState(auth);
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    if (authToken) setAuth(authToken);
+  }, []);
 
   return (
     <div className={style.app}>
