@@ -49,7 +49,7 @@ export const fetchFeedbacks = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({ feedbacks });
+    res.json({ user, feedbacks });
   } catch (e) {
     console.log("Error on fetching feedbacks");
     console.error(e);
