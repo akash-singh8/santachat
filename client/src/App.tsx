@@ -9,6 +9,7 @@ import Notification from "./components/Notification";
 import { Routes, Route } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import feedbackPop from "./store/feedback";
+import User from "./components/User";
 
 function App() {
   const feedback = useRecoilValue(feedbackPop);
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/chat" element={<Chat />}></Route>
         <Route path="/verify" element={<Verify />}></Route>
+        <Route path="/user" element={<User />}></Route>
       </Routes>
 
       <footer className={style.footer}>
