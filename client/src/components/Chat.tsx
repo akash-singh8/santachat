@@ -166,11 +166,10 @@ const Chat = () => {
   };
 
   return (
-    <Window>
-      <main className={style.chat}>
-        <div className={style.chats}></div>
-
-        <div className={style.input_container}>
+    <div className={style.container}>
+      <Window>
+        <div className={style.chat}>
+          <div className={style.chats}></div>
           <form className={style.input} onSubmit={sendMessage}>
             <label htmlFor="image-upload" className={style.image}>
               <input
@@ -181,15 +180,15 @@ const Chat = () => {
               />
               <img src={add_image} alt="add image" title="Add Image" />
             </label>
-
+            
             <input type="text" placeholder="type message here..." required />
             <button type="submit">
               <img src={send} alt="send" />
             </button>
           </form>
         </div>
-      </main>
-    </Window>
+      </Window>
+    </div>
   );
 };
 

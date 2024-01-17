@@ -56,22 +56,16 @@
   color: white;
 }
 
-.input_container {
+.input {
   background-color: white;
   border: 2px solid #eaeaea;
   border-radius: 20px;
   display: flex;
-  flex-direction: column-reverse;
-  row-gap: 8px;
-  padding: 7px 20px 7px 20px;
-  width: 66%;
-}
-
-.input {
-  display: flex;
   align-items: center;
   justify-content: space-between;
   column-gap: 18px;
+  padding: 7px 16px 7px 20px;
+  width: 66%;
 }
 
 .input input,
@@ -128,4 +122,46 @@
   border-radius: 6px;
   border: 1px solid #eaeaea;
   width: 100px;
+}
+
+@media only screen and (max-width: 1080px) {
+  .container {
+    width: 90%;
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 780px) {
+  .container {
+    width: 95%;
+  }
+}
+
+@media only screen and (max-width: 620px) {
+  .input {
+    width: 90%;
+  }
+
+  .input {
+    column-gap: 10px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .input {
+    width: 100%;
+  }
+
+  .input input {
+    font-size: 14px;
+    min-width: 20px;
+  }
+
+  .image img {
+    width: 22px;
+  }
+
+  .input img {
+    height: 28px;
+  }
 }
