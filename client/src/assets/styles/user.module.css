@@ -88,3 +88,32 @@
   font-size: 1em;
   font-weight: 500;
 }
+
+@media only screen and (max-width: 780px) {
+  .feedback {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .detail img {
+    width: 68px;
+  }
+
+  .feedback h2,
+  .detail h2 {
+    font-size: 1em;
+  }
+
+  .feedback {
+    width: 95%;
+  }
+
+  .table thead {
+    padding: 8px 18px;
+  }
+
+  .row {
+    padding: 10px 18px;
+  }
+}
