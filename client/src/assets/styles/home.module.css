@@ -20,5 +20,27 @@
 }
 
 .home img {
+  width: 90%;
   max-width: 760px;
+}
+
+@media only screen and (max-width: 740px) {
+  .home {
+    justify-content: flex-start;
+  }
+
+  .description {
+    font-size: 12px;
+    max-width: 160px;
+  }
+
+  .home button {
+    font-size: 0.8em;
+    padding: 0.6em 1.2em;
+  }
+
+  .home img {
+    height: 100%;
+    object-fit: cover;
+  }
 }
