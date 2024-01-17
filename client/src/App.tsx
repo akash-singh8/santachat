@@ -13,14 +13,33 @@ import feedbackPop from "./store/feedback";
 import User from "./components/User";
 import auth from "./store/auth";
 import Header from "./components/Header";
+import userState from "./store/user";
 
 function App() {
   const feedback = useRecoilValue(feedbackPop);
   const setAuth = useSetRecoilState(auth);
+  const setUser = useSetRecoilState(userState);
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
-    if (authToken) setAuth(authToken);
+    if (authToken) {
+      setAuth(authToken);
+
+      const fetchFeedback = fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/feedback`,
+        {
+          method: "GET",
+          headers: {
+            authorization: authToken,
+          },
+        }
+      );
+
+      fetchFeedback
+        .then((res) => res.json())
+        .then((data) => setUser(data))
+        .catch((e) => console.log("Error on fetching feedbacks :", e));
+    }
   }, []);
 
   return (

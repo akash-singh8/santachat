@@ -1,13 +1,14 @@
 import style from "../assets/styles/user.module.css";
 import user from "../assets/images/user.svg";
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import auth from "../store/auth";
 import { useNavigate } from "react-router-dom";
+import userState from "../store/user";
 
 const User = () => {
   const [authToken, setAuthToken] = useRecoilState(auth);
-  const [data, setData] = useState<any>();
+  const userData = useRecoilValue(userState);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,21 +17,6 @@ const User = () => {
       navigate("/");
       return;
     }
-
-    const fetchFeedback = fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/feedback`,
-      {
-        method: "GET",
-        headers: {
-          authorization: authToken,
-        },
-      }
-    );
-
-    fetchFeedback
-      .then((res) => res.json())
-      .then((data) => setData(data))
-      .catch((e) => console.log("Error on fetching feedbacks :", e));
   }, []);
 
   const handleLogout = () => {
@@ -43,7 +29,7 @@ const User = () => {
     <div className={style.user}>
       <div className={style.detail}>
         <img src={user} alt="user profile" />
-        <h2>{data?.user}</h2>
+        <h2>{userData.user}</h2>
 
         <button className="button" onClick={handleLogout}>
           logout
@@ -62,8 +48,8 @@ const User = () => {
             </tr>
           </thead>
           <tbody>
-            {data?.feedbacks.length ? (
-              data.feedbacks.map((feedback: any) => {
+            {userData.feedbacks?.length ? (
+              userData.feedbacks.map((feedback: any) => {
                 const time = new Date(feedback.createdAt);
 
                 return (
