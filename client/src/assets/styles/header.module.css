@@ -23,3 +23,38 @@
   top: 12px;
   right: 28px;
 }
+
+@media only screen and (max-width: 780px) {
+  .header h1 {
+    font-size: 40px;
+  }
+
+  .header p {
+    font-size: 10px;
+  }
+
+  .profile {
+    width: 42px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .header {
+    align-items: flex-start;
+    padding: 0 14px;
+  }
+
+  .header h1 {
+    font-size: 32px;
+  }
+
+  .header p {
+    font-size: 8px;
+  }
+
+  .profile {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+  }
+}
