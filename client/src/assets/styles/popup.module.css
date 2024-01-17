@@ -208,3 +208,41 @@
 .start:active {
   opacity: 0.7;
 }
+
+@media only screen and (max-width: 780px) {
+  .container > div {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .waiting_head {
+    margin-bottom: 18px;
+  }
+
+  .waiting_head h2,
+  .waiting_head span {
+    font-size: 1.2em;
+  }
+
+  .waiting_head p {
+    font-size: 0.7em;
+  }
+
+  .waiting > div:nth-child(2) p {
+    font-size: 0.9em;
+  }
+
+  .interests li {
+    font-size: 0.8em;
+  }
+
+  .gender {
+    font-size: 0.9em;
+  }
+
+  .start {
+    font-size: 0.9em;
+    margin-top: 26px;
+  }
+}
