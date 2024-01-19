@@ -14,9 +14,12 @@ import User from "./components/User";
 import auth from "./store/auth";
 import Header from "./components/Header";
 import userState from "./store/user";
+import Timing from "./components/Timing";
+import timingPop from "./store/timing";
 
 function App() {
   const feedback = useRecoilValue(feedbackPop);
+  const timing = useRecoilValue(timingPop);
   const setAuth = useSetRecoilState(auth);
   const setUser = useSetRecoilState(userState);
 
@@ -48,6 +51,7 @@ function App() {
 
       <Popup />
       {feedback && <Feedback />}
+      {timing && <Timing />}
       <Notification />
 
       <Routes>

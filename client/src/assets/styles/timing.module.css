@@ -1,0 +1,35 @@
+.timing {
+  color: var(--primary-text);
+  display: flex;
+  flex-direction: column;
+  padding-top: 22px;
+  width: 100%;
+}
+
+.timing h3 {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.detail {
+  text-align: center;
+  font-size: 14px;
+  margin: 18px 0 20px;
+}
+
+.detail h3 {
+  color: var(--primary-color);
+}
+
+.opening {
+  text-align: center;
+}
+
+.opening p {
+  color: var(--primary-color);
+  font-size: 2em;
+  font-weight: 600;
+  margin-top: -5px;
+}
