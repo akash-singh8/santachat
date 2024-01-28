@@ -11,7 +11,13 @@ const Home = () => {
   const [timing, setTimingPop] = useRecoilState(timingPop);
 
   const handleChat = () => {
-    if (logged && !timing) {
+    const currTime = new Date().toTimeString().split(" ")[0];
+
+    if (
+      (logged && !timing && currTime < "09:00:00") ||
+      currTime > "23:00:00" ||
+      (currTime > "11:00:00" && currTime < "20:00:00")
+    ) {
       setTimingPop(true);
     } else {
       setPopup(true);

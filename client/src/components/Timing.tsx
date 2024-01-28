@@ -16,7 +16,7 @@ const Timing = () => {
         let [hr, min, sec] = currTime.split(":");
         setRemainingTime(
           // @ts-ignore
-          `${hr < "24" && hr > "23" ? 23 - hr + 9 : 8 - hr}:${60 - min}:${60 - sec}`
+          `${hr < "24" ? 9 : 8 - hr}:${60 - min}:${60 - sec}`
         );
       }, 1000);
     }
