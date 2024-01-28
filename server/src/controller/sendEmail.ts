@@ -15,45 +15,30 @@ const sendEmail = (email: string) => {
   const mailDetails = {
     from: process.env.NODEMAILER_USER_EMAIL,
     to: email,
-    subject: "Verify Your Account",
+    subject: "Welcome to SANTaCHAT - Verify your account and start chatting!",
     html: `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SANTaCHAT</title>
-        <style>
-            body {
-            background-color: #F9F9F9;
-            font-family: 'Arial', sans-serif;
-            margin: 20px;
-            }
-            a {
-            color: #007BFF;
-            text-decoration: none;
-            }
-            a:hover {
-            text-decoration: underline;
-            }
-            hr {
-            border: 1px solid #DDD;
-            margin: 20px 0;
-            }
-            strong, h3 {
-            color: #B30738;
-            }
-        </style>
-        </head>
-        <body>
-            <p>Dear User, Welcome to <strong>SANTaCHAT</strong></p>
-            <p>To complete the account verification process, please click on the link below:</p>
-            <a href="${link}" target="_blank">${link?.slice(0, 80)}</a>
-            <p>This link is valid for 5 minutes only.</p>
-            <hr>
-            <h3>SANTaCHAT</h3>
-        </body>
-        </html>
+        <p>Thanks for joining SANTaCHAT! To unlock all the exciting features and start connecting with others, just one quick step is left: verify your account.</p>
+        <p>Click the link below to confirm your email address and activate your profile:</p>
+
+        <a href="${link}" target="_blank">${link?.slice(0, 60)}</a>
+
+        <div>
+          <p>This link will be valid for 5 minutes. Once verified, you'll be able to:</p>
+          <ul>
+            <li>Connect with other Santas and fellow holiday enthusiasts</li>
+            <li>Join lively conversations and share the holiday spirit</li>
+            <li>And much more!</li>
+          </ul>
+        </div>
+
+        <p>We can't wait to welcome you to the SANTaCHAT community!</p>
+
+        <br>
+        
+        <div>
+          <p>Warmly,</p>
+          <p>The SANTaCHAT Team</p>
+        </div>
       `,
   };
 
