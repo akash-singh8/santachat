@@ -14,9 +14,11 @@ const Home = () => {
     const currTime = new Date().toTimeString().split(" ")[0];
 
     if (
-      (logged && !timing && currTime < "09:00:00") ||
-      currTime > "23:00:00" ||
-      (currTime > "11:00:00" && currTime < "20:00:00")
+      logged &&
+      !timing &&
+      (currTime < "09:00:00" ||
+        currTime > "23:00:00" ||
+        (currTime > "11:00:00" && currTime < "20:00:00"))
     ) {
       setTimingPop(true);
     } else {
