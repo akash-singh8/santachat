@@ -16,9 +16,8 @@ const Home = () => {
     if (
       logged &&
       !timing &&
-      (currTime < "09:00:00" ||
-        currTime > "23:00:00" ||
-        (currTime > "11:00:00" && currTime < "20:00:00"))
+      ((currTime > "02:00:00" && currTime < "08:00:00") ||
+        (currTime > "13:00:00" && currTime < "20:00:00"))
     ) {
       setTimingPop(true);
     } else {

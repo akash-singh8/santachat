@@ -9,25 +9,23 @@ const Timing = () => {
   useEffect(() => {
     let currTime = new Date().toTimeString().split(" ")[0];
 
-    if (currTime < "09:00:00" || currTime > "23:00:00") {
-      setInterval(() => {
-        currTime = new Date().toTimeString().split(" ")[0];
-
-        let [hr, min, sec] = currTime.split(":");
-        setRemainingTime(
-          // @ts-ignore
-          `${hr < "24" ? 9 : 8 - hr}:${60 - min}:${60 - sec}`
-        );
-      }, 1000);
-    }
-
-    if (currTime > "11:00:00" && currTime < "20:00:00") {
+    if (currTime > "02:00:00" && currTime < "08:00:00") {
       setInterval(() => {
         currTime = new Date().toTimeString().split(" ")[0];
 
         let [hr, min, sec] = currTime.split(":");
         // @ts-ignore
-        setRemainingTime(`${20 - hr}:${60 - min}:${60 - sec}`);
+        setRemainingTime(`${7 - hr}:${60 - min}:${60 - sec}`);
+      }, 1000);
+    }
+
+    if (currTime > "13:00:00" && currTime < "20:00:00") {
+      setInterval(() => {
+        currTime = new Date().toTimeString().split(" ")[0];
+
+        let [hr, min, sec] = currTime.split(":");
+        // @ts-ignore
+        setRemainingTime(`${19 - hr}:${60 - min}:${60 - sec}`);
       }, 1000);
     }
   }, []);
