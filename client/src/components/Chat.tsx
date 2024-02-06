@@ -17,11 +17,6 @@ const Chat = () => {
   let ws: WebSocket;
 
   useEffect(() => {
-    if (!authToken) {
-      alert("Please verify your identity to continue!");
-      return;
-    }
-
     ws = new WebSocket(
       `${
         import.meta.env.VITE_BACKEND_WS_URL
@@ -56,7 +51,13 @@ const Chat = () => {
     ws.onclose = () => {
       console.log("Disconnected from websocket server");
     };
-  }, []);
+
+    return () => {
+      if (ws) {
+        ws.close();
+      }
+    };
+  }, [authToken]);
 
   // function to add message block to chats
   const addMessage = async (
@@ -180,7 +181,7 @@ const Chat = () => {
               />
               <img src={add_image} alt="add image" title="Add Image" />
             </label>
-            
+
             <input type="text" placeholder="type message here..." required />
             <button type="submit">
               <img src={send} alt="send" />
