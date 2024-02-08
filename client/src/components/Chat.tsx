@@ -106,7 +106,7 @@ const Chat = () => {
     }
 
     const messageInput = document.querySelector(
-      `.${style.input} input[type="text"]`
+      `.${style.input_container} input[type="text"]`
     ) as HTMLInputElement;
 
     const image = document.querySelector(`.${style.image} input`);
@@ -171,22 +171,25 @@ const Chat = () => {
       <Window>
         <div className={style.chat}>
           <div className={style.chats}></div>
-          <form className={style.input} onSubmit={sendMessage}>
-            <label htmlFor="image-upload" className={style.image}>
-              <input
-                id="image-upload"
-                type="file"
-                accept="image/*"
-                onChange={addInputImage}
-              />
-              <img src={add_image} alt="add image" title="Add Image" />
-            </label>
 
-            <input type="text" placeholder="type message here..." required />
-            <button type="submit">
-              <img src={send} alt="send" />
-            </button>
-          </form>
+          <div className={style.input_container}>
+            <form className={style.input} onSubmit={sendMessage}>
+              <label htmlFor="image-upload" className={style.image}>
+                <input
+                  id="image-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={addInputImage}
+                />
+                <img src={add_image} alt="add image" title="Add Image" />
+              </label>
+
+              <input type="text" placeholder="type message here..." required />
+              <button type="submit">
+                <img src={send} alt="send" />
+              </button>
+            </form>
+          </div>
         </div>
       </Window>
     </div>
