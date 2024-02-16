@@ -79,13 +79,13 @@ export const handleUserWithInterest = (
       ws.send(
         JSON.stringify({
           status: 202,
-          message: `Partner found: ${partner}`,
+          message: `Partner found!`,
         })
       );
       client[partner].ws.send(
         JSON.stringify({
           status: 202,
-          message: `Partner found: ${user}`,
+          message: `Partner found!`,
         })
       );
 
@@ -121,14 +121,14 @@ export const handleUserWithNoInterest = (user: string, ws: WebSocket) => {
     ws.send(
       JSON.stringify({
         status: 202,
-        message: `Partner found: ${partner}`,
+        message: `Partner found!`,
       })
     );
 
     client[partner].ws.send(
       JSON.stringify({
         status: 202,
-        message: `Partner found: ${user}`,
+        message: `Partner found!`,
       })
     );
   } else {
