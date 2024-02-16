@@ -7,9 +7,10 @@
 }
 
 .header p {
+  text-align: center;
   color: var(--primary-text);
-  font-size: 11.3px;
-  font-weight: 600;
+  font-size: 15.3px;
+  font-weight: 500;
   margin-top: -7px;
 }
 
@@ -30,7 +31,7 @@
   }
 
   .header p {
-    font-size: 10px;
+    font-size: 13.5px;
   }
 
   .profile {
@@ -49,7 +50,7 @@
   }
 
   .header p {
-    font-size: 8px;
+    font-size: 11px;
   }
 
   .profile {
