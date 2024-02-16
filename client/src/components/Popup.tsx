@@ -37,9 +37,9 @@ const VerifyPop = () => {
     <div className={style.popup}>
       <div className={style.header}>
         <p>
-          Welcome to <span>SANTaCHAT</span>
+          Welcome to <span>Assume Chat</span>
         </p>
-        <p>An anonymous chatroom for SCU students</p>
+        <p>Assume is to put ass between u and me</p>
       </div>
 
       <div className={style.verify}>

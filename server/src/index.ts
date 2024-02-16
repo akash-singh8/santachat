@@ -36,7 +36,7 @@ redisClient
 const wss = new WebSocketServer({ server });
 
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to SANTaCHAT Backend!" });
+  res.json({ message: "Welcome to AssumeChat Backend!" });
 });
 
 wss.on("connection", wsConnectionHandler);

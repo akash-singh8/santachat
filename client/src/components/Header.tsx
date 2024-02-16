@@ -10,8 +10,8 @@ const Header = () => {
   return (
     <header className={style.header}>
       <Link to={"/"}>
-        <h1>SANTaCHAT</h1>
-        <p>CONNECTING STUDENTS, CREATING COMMUNITY!</p>
+        <h1>Assume Chat</h1>
+        <p>Assume is to put ass between u and me</p>
       </Link>
 
       {logged && (

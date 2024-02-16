@@ -65,7 +65,7 @@ function App() {
         <ul>
           <li>COPYRIGHT</li>
           <li>2023-2024</li>
-          <li>SANTaCHAT</li>
+          <li>ASSUMECHAT</li>
         </ul>
       </footer>
     </div>

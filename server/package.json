@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "API for SantaChat",
+  "description": "API for Assume Chat",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
