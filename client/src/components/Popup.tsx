@@ -3,17 +3,24 @@ import Window from "./Window";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import popState from "../store/popup";
 import userInterestState from "../store/interests";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import auth from "../store/auth";
+import UniversityList from "../utils/university_list";
 
 const VerifyPop = () => {
+  const [domain, setDomain] = useState("princeton.edu");
   const verifyUser = async (e: any) => {
     e.preventDefault();
 
     const email = document.querySelector(
       `.${style.input} input`
     ) as HTMLInputElement;
+
+    const emailDomain = email.value.split("@");
+    if (emailDomain[1] !== domain) {
+      return alert("Invalid Email!");
+    }
 
     try {
       const res = await fetch(
@@ -42,14 +49,29 @@ const VerifyPop = () => {
         <p>Assume is to put ass between u and me</p>
       </div>
 
+      <div className={style.university}>
+        <label htmlFor="university">University: </label>
+
+        <select
+          id="university"
+          onClick={(e) => {
+            setDomain(UniversityList[e.target.value]);
+          }}
+        >
+          {Object.keys(UniversityList).map((university, i) => (
+            <option value={university}>{`${i + 1}. ${university}`}</option>
+          ))}
+        </select>
+      </div>
+
       <div className={style.verify}>
         <form className={style.input} onSubmit={verifyUser}>
-          <input type="email" placeholder="student@scu.edu" required />
+          <input type="email" placeholder={`student@${domain}`} required />
           <button className={style.button} type="submit">
             verify
           </button>
         </form>
-        <p>Please verify your SCU email address</p>
+        <p>Please verify your {domain} email address</p>
       </div>
     </div>
   );
