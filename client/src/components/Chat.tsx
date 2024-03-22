@@ -8,11 +8,9 @@ import { toast } from "react-toastify";
 import add_image from "../assets/images/add_image.svg";
 import send from "../assets/images/send.png";
 import feedbackPop from "../store/feedback";
-import Notify from "../store/notification";
 import auth from "../store/auth";
 
 const Chat = () => {
-  const setNotifcation = useSetRecoilState(Notify);
   const setFeedback = useSetRecoilState(feedbackPop);
   const userInterest = useRecoilValue(userInterestState);
   const authToken = useRecoilValue(auth);
@@ -39,14 +37,22 @@ const Chat = () => {
       const data: Message = JSON.parse(event.data);
       console.log("Received message :", data);
 
-      if (data.status === 303) {
-        setFeedback(true);
-      }
-
-      if (data.status === 200) {
-        addMessage(data.message, style.left, data.image);
-      } else {
-        setNotifcation(data.message);
+      switch (data.status) {
+        case 200:
+          addMessage(data.message, style.left, data.image);
+          break;
+        case 201:
+          toast.info(data.message);
+          break;
+        case 202:
+          toast.success(data.message);
+          break;
+        case 303:
+          setFeedback(true);
+          break;
+        default:
+          toast.error(data.message);
+          break;
       }
     };
 

@@ -4,7 +4,6 @@ import Chat from "./components/Chat";
 import Popup from "./components/Popup";
 import Verify from "./components/Verify";
 import Feedback from "./components/Feedback";
-import Notification from "./components/Notification";
 
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
@@ -55,7 +54,6 @@ function App() {
       <Popup />
       {feedback && <Feedback />}
       {timing && <Timing />}
-      <Notification />
 
       <Routes>
         <Route path="/" element={<Home />}></Route>
