@@ -9,6 +9,9 @@ import Notification from "./components/Notification";
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import feedbackPop from "./store/feedback";
 import User from "./components/User";
 import auth from "./store/auth";
@@ -68,6 +71,8 @@ function App() {
           <li>ASSUMECHAT</li>
         </ul>
       </footer>
+
+      <ToastContainer />
     </div>
   );
 }

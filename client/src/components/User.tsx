@@ -5,6 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import auth from "../store/auth";
 import { useNavigate } from "react-router-dom";
 import userState from "../store/user";
+import { toast } from "react-toastify";
 
 const User = () => {
   const [authToken, setAuthToken] = useRecoilState(auth);
@@ -13,7 +14,7 @@ const User = () => {
 
   useEffect(() => {
     if (!authToken) {
-      alert("Please login to continue!");
+      toast.warning("Please login to continue!");
       navigate("/");
       return;
     }
@@ -49,7 +50,7 @@ const User = () => {
           </thead>
           <tbody>
             {userData.feedbacks?.length ? (
-              userData.feedbacks.map((feedback: any) => {
+              userData.feedbacks.map((feedback) => {
                 const time = new Date(feedback.createdAt);
 
                 return (

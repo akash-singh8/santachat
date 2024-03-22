@@ -1,6 +1,8 @@
 import { useSearchParams } from "react-router-dom";
 import Window from "./Window";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
 import style from "../assets/styles/verify.module.css";
 
 const Verify = () => {
@@ -54,7 +56,7 @@ const Verify = () => {
       }
     } catch (e) {
       console.log(e);
-      alert("Unable to verify at present moment!");
+      toast.error("Unable to verify at present moment!");
     }
   };
 

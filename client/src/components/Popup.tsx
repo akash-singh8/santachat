@@ -7,10 +7,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import auth from "../store/auth";
 import UniversityList from "../utils/university_list";
+import { toast } from "react-toastify";
 
 const VerifyPop = () => {
   const [domain, setDomain] = useState("princeton.edu");
-  const verifyUser = async (e: any) => {
+  const verifyUser = async (e) => {
     e.preventDefault();
 
     const email = document.querySelector(
@@ -19,7 +20,9 @@ const VerifyPop = () => {
 
     const emailDomain = email.value.split("@");
     if (emailDomain[1] !== domain) {
-      return alert("Invalid Email!");
+      return toast.error(`Invalid email: ${email.value}`, {
+        toastId: "invalid-email",
+      });
     }
 
     try {
@@ -31,12 +34,12 @@ const VerifyPop = () => {
       );
 
       const data = await res.json();
-      alert(data.message);
+      toast.info(data.message);
 
       email.value = "";
     } catch (e) {
       console.log(e);
-      alert("Unable to verify at present moment!");
+      toast.error("Unable to verify at present moment!");
     }
   };
 
@@ -99,7 +102,6 @@ const WaitingRoom = () => {
     interests.forEach((interest) => {
       interest.addEventListener("click", () => {
         const name = interest.innerHTML;
-        // @ts-ignore
         userInterest[name] = !userInterest[name];
         interest.classList.toggle(`${style.active_interest}`);
       });
@@ -111,7 +113,6 @@ const WaitingRoom = () => {
     let interestStr = "";
 
     interests.forEach((interest) => {
-      // @ts-ignore
       if (userInterest[interest]) {
         interestStr += interest + "_";
       }

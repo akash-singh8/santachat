@@ -1,10 +1,12 @@
 import style from "../assets/styles/chat.module.css";
 import Window from "./Window";
-import send from "../assets/images/send.png";
 import { useEffect } from "react";
 import userInterestState from "../store/interests";
 import { useSetRecoilState, useRecoilValue } from "recoil";
+import { toast } from "react-toastify";
+
 import add_image from "../assets/images/add_image.svg";
+import send from "../assets/images/send.png";
 import feedbackPop from "../store/feedback";
 import Notify from "../store/notification";
 import auth from "../store/auth";
@@ -97,11 +99,13 @@ const Chat = () => {
   };
 
   // function to send messages
-  const sendMessage = (e: any) => {
+  const sendMessage = (e) => {
     e.preventDefault();
 
     if (!ws) {
-      alert("Connection not established yet!");
+      toast.error("Connection not established yet!", {
+        toastId: "not-connected",
+      });
       return;
     }
 
@@ -143,7 +147,7 @@ const Chat = () => {
     }
   };
 
-  const addInputImage = (e: any) => {
+  const addInputImage = (e) => {
     const image = e.target.files[0];
     const input = document.querySelector(
       `.${style.input_container}`

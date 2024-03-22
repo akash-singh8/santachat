@@ -2,6 +2,7 @@ import popStyle from "../assets/styles/popup.module.css";
 import style from "../assets/styles/feedback.module.css";
 import Window from "./Window";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const Feedback = () => {
   let rating = 0;
@@ -47,10 +48,10 @@ const Feedback = () => {
 
       const data = await res.json();
 
-      alert(data.message);
+      toast.info(data.message);
     } catch (e) {
       console.log(e);
-      alert("Unable to send feedback at present moment!");
+      toast.error("Unable to send feedback at present moment!");
     }
 
     window.location.href = "/";
