@@ -1,23 +1,25 @@
+import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { ToastContainer } from "react-toastify";
+import { Container } from "@mui/material";
+
+import "react-toastify/dist/ReactToastify.css";
 import style from "./assets/styles/app.module.css";
 import Home from "./components/Home";
 import Chat from "./components/Chat";
 import Popup from "./components/Popup";
 import Verify from "./components/Verify";
 import Feedback from "./components/Feedback";
-
-import { Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-import feedbackPop from "./store/feedback";
 import User from "./components/User";
-import auth from "./store/auth";
 import Header from "./components/Header";
-import userState from "./store/user";
 import Timing from "./components/Timing";
+import Footer from "./components/Footer";
+
+import auth from "./store/auth";
+import userState from "./store/user";
 import timingPop from "./store/timing";
+import feedbackPop from "./store/feedback";
 
 function App() {
   const feedback = useRecoilValue(feedbackPop);
@@ -48,7 +50,7 @@ function App() {
   }, []);
 
   return (
-    <div className={style.app}>
+    <Container className={style.app}>
       <Header />
 
       <Popup />
@@ -62,16 +64,9 @@ function App() {
         <Route path="/user" element={<User />}></Route>
       </Routes>
 
-      <footer className={style.footer}>
-        <ul>
-          <li>COPYRIGHT</li>
-          <li>2023-2024</li>
-          <li>ASSUMECHAT</li>
-        </ul>
-      </footer>
-
+      <Footer />
       <ToastContainer />
-    </div>
+    </Container>
   );
 }
 
