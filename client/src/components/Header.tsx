@@ -1,11 +1,17 @@
+import { Box, Typography, useTheme } from "@mui/material";
 import { useRecoilValue } from "recoil";
-import style from "../assets/styles/header.module.css";
-import user from "../assets/images/user.svg";
-import auth from "../store/auth";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
+import Text from "../shared/Text";
+
+import style from "../assets/styles/header.module.css";
+import user from "../assets/images/user.svg";
+
+import auth from "../store/auth";
+
 const Header = () => {
+  const theme = useTheme();
   const logged = useRecoilValue(auth);
 
   useEffect(() => {
@@ -20,13 +26,20 @@ const Header = () => {
   return (
     <header className={style.header}>
       <Link to={"/"}>
-        <h1>Assume Chat</h1>
-        <p>Assume is to put ass between u and me</p>
+        <Typography variant="h1" color={theme.palette.primary.main}>
+          Assume Chat
+        </Typography>
+        <Text>Assume is to put ass between u and me</Text>
       </Link>
 
       {logged && (
         <Link to={"/user"}>
-          <img src={user} alt="profile" className={style.profile} />
+          <Box
+            className={style.profile}
+            sx={{ border: `2px solid ${theme.palette.primary.main}` }}
+          >
+            <img src={user} alt="profile" />
+          </Box>
         </Link>
       )}
     </header>

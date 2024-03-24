@@ -2,27 +2,36 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  font-family: "Poppins";
   margin-bottom: 40px;
   position: relative;
 }
 
+.header h1 {
+  font-size: 40px;
+  font-weight: 600;
+  font-family: inherit;
+}
+
 .header p {
   text-align: center;
-  color: var(--primary-text);
-  font-size: 15.3px;
   font-weight: 500;
-  margin-top: -7px;
+  font-size: 13px;
 }
 
 .profile {
-  border: 2px solid var(--primary-color);
   border-radius: 50%;
   cursor: pointer;
   padding: 8px;
   width: 48px;
+  height: 48px;
   position: absolute;
-  top: 12px;
+  top: 8px;
   right: 28px;
+}
+
+.profile img {
+  width: 100%;
 }
 
 @media only screen and (max-width: 780px) {
@@ -36,6 +45,7 @@
 
   .profile {
     width: 42px;
+    height: 42px;
   }
 }
 
@@ -54,8 +64,8 @@
   }
 
   .profile {
-    top: 10px;
     right: 10px;
     width: 40px;
+    height: 40px;
   }
 }
