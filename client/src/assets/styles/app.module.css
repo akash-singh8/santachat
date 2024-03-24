@@ -1,5 +1,5 @@
 .app {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   justify-content: space-between;
   padding: 28px 0 18px;
