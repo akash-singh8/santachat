@@ -1,9 +1,15 @@
-import style from "../assets/styles/home.module.css";
-import demo_chat from "../assets/images/chat.png";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { Box } from "@mui/material";
+
+import demo_chat from "../assets/images/chat.png";
+import style from "../assets/styles/home.module.css";
+
 import popState from "../store/popup";
 import auth from "../store/auth";
 import timingPop from "../store/timing";
+
+import Button from "../shared/Button";
+import Text from "../shared/Text";
 
 const Home = () => {
   const setPopup = useSetRecoilState(popState);
@@ -26,20 +32,18 @@ const Home = () => {
   };
 
   return (
-    <>
-      <main className={style.home}>
-        <p className={style.description}>
-          GET RANDOMLY MATCHED WITH SOMEONE FROM YOUR UNIVERSITY AND TEXT
-          ANONYMOUSLY
-        </p>
+    <Box className={style.home}>
+      <Text className={style.description}>
+        GET RANDOMLY MATCHED WITH SOMEONE FROM YOUR UNIVERSITY AND TEXT
+        ANONYMOUSLY
+      </Text>
 
-        <button className="button" onClick={handleChat}>
-          {logged ? "Chat Anonymously" : "Get Started"} &#x27F6;
-        </button>
+      <Button variant="contained" size="large" onClick={handleChat}>
+        {logged ? "Chat Anonymously" : "Get Started"} &#x27F6;
+      </Button>
 
-        <img src={demo_chat} alt="Demo Chat" />
-      </main>
-    </>
+      <img src={demo_chat} alt="Demo Chat" />
+    </Box>
   );
 };
 
