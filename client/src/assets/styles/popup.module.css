@@ -93,21 +93,6 @@
   color: rgb(177, 177, 177);
 }
 
-.button {
-  cursor: pointer;
-  font-weight: 600;
-  color: var(--primary-text);
-}
-.button:hover {
-  color: var(--primary-color);
-}
-.button:active {
-  opacity: 0.7;
-}
-.button:focus {
-  color: var(--primary-color);
-}
-
 .verify p {
   font-size: 0.8em;
   text-align: center;
