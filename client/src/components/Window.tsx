@@ -1,10 +1,15 @@
-import style from "../assets/styles/window.module.css";
 import { useSetRecoilState } from "recoil";
+import { Box, useTheme } from "@mui/material";
+
+import style from "../assets/styles/window.module.css";
+
 import popState from "../store/popup";
 import feedbackPop from "../store/feedback";
 import timingPop from "../store/timing";
 
 const Window = ({ children, type }: any) => {
+  const theme = useTheme();
+
   const setPopup = useSetRecoilState(popState);
   const setFeedback = useSetRecoilState(feedbackPop);
   const setTimingPop = useSetRecoilState(timingPop);
@@ -23,7 +28,13 @@ const Window = ({ children, type }: any) => {
 
   return (
     <div className={style.window}>
-      <div className={style.top}>
+      <Box
+        className={style.top}
+        sx={{
+          border: `2px solid ${theme.palette.primary[500]}`,
+          backgroundColor: theme.palette.primary[200],
+        }}
+      >
         <div
           style={{ backgroundColor: "#fa5555" }}
           onClick={closeHandler}
@@ -31,9 +42,17 @@ const Window = ({ children, type }: any) => {
         ></div>
         <div style={{ backgroundColor: "#efd448" }}></div>
         <div style={{ backgroundColor: "#59df44" }}></div>
-      </div>
+      </Box>
 
-      <div className={style.box}>{children}</div>
+      <Box
+        className={style.box}
+        sx={{
+          border: `2px solid ${theme.palette.primary[500]}`,
+          backgroundColor: theme.palette.background.default,
+        }}
+      >
+        {children}
+      </Box>
     </div>
   );
 };

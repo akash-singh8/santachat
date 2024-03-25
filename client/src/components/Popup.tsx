@@ -58,6 +58,7 @@ const VerifyPop = () => {
         <select
           id="university"
           onClick={(e) => {
+            // @ts-ignore
             setDomain(UniversityList[e.target.value]);
           }}
         >
