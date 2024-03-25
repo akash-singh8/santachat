@@ -34,16 +34,12 @@
 }
 
 .header {
-  color: var(--primary-text);
-  font-weight: 600;
   text-align: center;
-  line-height: 28px;
+  font-weight: 500;
 }
 
-.header span {
-  color: var(--primary-color);
-  font-weight: 700;
-  font-size: 18px;
+.header p {
+  font-size: 15px;
 }
 
 .university {

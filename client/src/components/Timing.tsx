@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
+import { useTheme } from "@mui/material";
+
 import popStyle from "../assets/styles/popup.module.css";
 import style from "../assets/styles/timing.module.css";
+
 import Window from "./Window";
+import Text from "../shared/Text";
 
 const Timing = () => {
+  const theme = useTheme();
   const [remainingTime, setRemainingTime] = useState("");
 
   useEffect(() => {
@@ -13,9 +18,10 @@ const Timing = () => {
       setInterval(() => {
         currTime = new Date().toTimeString().split(" ")[0];
 
-        let [hr, min, sec] = currTime.split(":");
-        // @ts-ignore
-        setRemainingTime(`${7 - hr}:${60 - min}:${60 - sec}`);
+        const [hr, min, sec] = currTime.split(":");
+        setRemainingTime(
+          `${7 - parseInt(hr)}:${60 - parseInt(min)}:${60 - parseInt(sec)}`
+        );
       }, 1000);
     }
 
@@ -23,9 +29,10 @@ const Timing = () => {
       setInterval(() => {
         currTime = new Date().toTimeString().split(" ")[0];
 
-        let [hr, min, sec] = currTime.split(":");
-        // @ts-ignore
-        setRemainingTime(`${19 - hr}:${60 - min}:${60 - sec}`);
+        const [hr, min, sec] = currTime.split(":");
+        setRemainingTime(
+          `${7 - parseInt(hr)}:${60 - parseInt(min)}:${60 - parseInt(sec)}`
+        );
       }, 1000);
     }
   }, []);
@@ -36,21 +43,37 @@ const Timing = () => {
         <Window type="timing">
           <div className={style.timing}>
             <div className={popStyle.header}>
-              <p>
-                Welcome to <span>Assume Chat</span>
-              </p>
-              <p>Assume is to put ass between u and me</p>
+              <div className={style.welcomeText}>
+                <Text>Welcome to&nbsp;</Text>
+                <Text
+                  sx={{ color: theme.palette.primary.main, fontWeight: 600 }}
+                >
+                  Assume Chat
+                </Text>
+              </div>
+              <Text>Assume is to put ass between u and me</Text>
             </div>
 
             <div className={style.detail}>
-              <h3>TIMING</h3>
-              <p>9 AM to 11 AM</p>
-              <p>8 PM to 11 PM</p>
+              <Text sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>
+                TIMING
+              </Text>
+              <Text>9 AM to 11 AM</Text>
+              <Text>8 PM to 11 PM</Text>
             </div>
 
             <div className={style.opening}>
-              <h3>OPENING IN</h3>
-              <p>{remainingTime ? remainingTime : "_:_:_"}</p>
+              <Text sx={{ fontWeight: 500 }}>OPENING IN</Text>
+              <Text
+                sx={{
+                  color: theme.palette.primary.main,
+                  fontWeight: 500,
+                  fontSize: "2rem",
+                }}
+              >
+                {remainingTime ? remainingTime : "_:_:_"}
+              </Text>
+              <p></p>
             </div>
           </div>
         </Window>
