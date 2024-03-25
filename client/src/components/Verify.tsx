@@ -1,9 +1,11 @@
 import { useSearchParams } from "react-router-dom";
-import Window from "./Window";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import style from "../assets/styles/verify.module.css";
+
+import Window from "./Window";
+import Text from "../shared/Text";
 
 const Verify = () => {
   const [searchParams] = useSearchParams();
@@ -63,7 +65,7 @@ const Verify = () => {
   return (
     <div className={style.verify}>
       <Window>
-        <p className={style.message}>{message}</p>
+        <Text className={style.message}>{message}</Text>
       </Window>
     </div>
   );
