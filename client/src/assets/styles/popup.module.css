@@ -29,8 +29,9 @@
   justify-content: space-around;
   flex-direction: column;
   flex: 1;
-  height: 268px;
+  height: 254px;
   width: 100%;
+  padding-top: 0.7rem;
 }
 
 .header {
@@ -42,16 +43,19 @@
   font-size: 15px;
 }
 
+.welcomeText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .university {
-  color: var(--primary-text);
-  font-weight: 500;
+  font-weight: 500 !important;
+  font-family: "Poppins";
 }
 
 .university select {
   border-radius: 6px;
-  border: 1px solid #cfcfcf;
-  color: var(--primary-color);
-  font-weight: 500;
   padding: 6px 8px;
   margin-left: 4px;
   outline: none;
@@ -76,7 +80,7 @@
 .input button {
   background-color: transparent;
   border: none;
-  font-family: inherit;
+  font-family: "Poppins";
   font-size: 0.9em;
   outline: none;
 }
@@ -127,17 +131,6 @@
   font-size: 1.5rem !important;
   line-height: 1.5 !important;
   font-weight: 600;
-}
-
-.waiting_head p {
-  font-size: 0.8em;
-  line-height: 0.9em;
-}
-
-.waiting_head span {
-  color: var(--primary-color);
-  font-weight: 600;
-  font-size: 1.5em;
 }
 
 .waiting_head > div {

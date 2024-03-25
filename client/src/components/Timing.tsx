@@ -43,7 +43,7 @@ const Timing = () => {
         <Window type="timing">
           <div className={style.timing}>
             <div className={popStyle.header}>
-              <div className={style.welcomeText}>
+              <div className={popStyle.welcomeText}>
                 <Text>Welcome to&nbsp;</Text>
                 <Text
                   sx={{ color: theme.palette.primary.main, fontWeight: 600 }}

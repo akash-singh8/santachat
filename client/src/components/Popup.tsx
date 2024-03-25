@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { styled } from "@mui/material";
+import { styled, useTheme } from "@mui/material";
 
 import style from "../assets/styles/popup.module.css";
 import UniversityList from "../utils/university_list";
@@ -16,6 +16,7 @@ import popState from "../store/popup";
 import auth from "../store/auth";
 
 const VerifyPop = () => {
+  const theme = useTheme();
   const [domain, setDomain] = useState("princeton.edu");
   const verifyUser = async (e) => {
     e.preventDefault();
@@ -49,23 +50,44 @@ const VerifyPop = () => {
     }
   };
 
+  const StyledButton = styled("button")(({ theme }) => ({
+    cursor: "pointer",
+    color: theme.palette.primary[800],
+    fontWeight: 500,
+    "&:hover": {
+      color: theme.palette.primary.main,
+    },
+  }));
+
   return (
     <div className={style.popup}>
       <div className={style.header}>
-        <p>
-          Welcome to <span>Assume Chat</span>
-        </p>
-        <p>Assume is to put ass between u and me</p>
+        <div className={style.welcomeText}>
+          <Text>Welcome to&nbsp;</Text>
+          <Text sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>
+            Assume Chat
+          </Text>
+        </div>
+        <Text>Assume is to put ass between u and me</Text>
       </div>
 
       <div className={style.university}>
-        <label htmlFor="university">University: </label>
+        <label
+          htmlFor="university"
+          style={{ color: theme.palette.primary[800] }}
+        >
+          University:{" "}
+        </label>
 
         <select
           id="university"
           onClick={(e) => {
             // @ts-ignore
             setDomain(UniversityList[e.target.value]);
+          }}
+          style={{
+            color: theme.palette.primary.main,
+            border: `1px solid ${theme.palette.primary[500]}`,
           }}
         >
           {Object.keys(UniversityList).map((university, i) => (
@@ -77,11 +99,9 @@ const VerifyPop = () => {
       <div className={style.verify}>
         <form className={style.input} onSubmit={verifyUser}>
           <input type="email" placeholder={`student@${domain}`} required />
-          <button className={style.button} type="submit">
-            verify
-          </button>
+          <StyledButton type="submit">verify</StyledButton>
         </form>
-        <p>Please verify your {domain} email address</p>
+        <Text>Please verify your {domain} email address</Text>
       </div>
     </div>
   );
