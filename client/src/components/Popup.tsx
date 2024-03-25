@@ -1,13 +1,19 @@
-import style from "../assets/styles/popup.module.css";
-import Window from "./Window";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import popState from "../store/popup";
-import userInterestState from "../store/interests";
 import { useEffect, useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import auth from "../store/auth";
-import UniversityList from "../utils/university_list";
 import { toast } from "react-toastify";
+import { styled } from "@mui/material";
+
+import style from "../assets/styles/popup.module.css";
+import UniversityList from "../utils/university_list";
+
+import Window from "./Window";
+import Text from "../shared/Text";
+import Button from "../shared/Button";
+
+import userInterestState from "../store/interests";
+import popState from "../store/popup";
+import auth from "../store/auth";
 
 const VerifyPop = () => {
   const [domain, setDomain] = useState("princeton.edu");
@@ -125,48 +131,66 @@ const WaitingRoom = () => {
     navigate("/chat");
   };
 
+  const ListItem = styled("li")(({ theme }) => ({
+    backgroundColor: theme.palette.primary[200],
+    color: theme.palette.primary[800],
+    fontFamily: "Poppins",
+    fontSize: "14px",
+
+    "&:hover": {
+      color: theme.palette.primary.main,
+      fontWeight: 600,
+    },
+
+    [`&.${style.active_interest}`]: {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary[100],
+      fontWeight: 500,
+    },
+  }));
+
   return (
     <div className={style.waiting}>
       <div className={style.waiting_head}>
-        <h2>WAITING ROOM</h2>
-        <div>
+        <Text>WAITING ROOM</Text>
+        {/* <div>
           <span>57</span>
           <div>
             <p>active</p>
             <p>students</p>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div>
-        <p>Select the keywords that you are interest in</p>
+        <Text sx={{ fontSize: "1rem" }}>
+          Select the keywords that you are interest in
+        </Text>
         <ul className={style.interests}>
-          <li>Clubs</li>
-          <li>Rooms</li>
-          <li>Study</li>
-          <li>Chill</li>
-          <li>Freshman</li>
-          <li>Sophomore</li>
-          <li>Junior</li>
-          <li>Senior</li>
+          <ListItem>Clubs</ListItem>
+          <ListItem>Rooms</ListItem>
+          <ListItem>Study</ListItem>
+          <ListItem>Chill</ListItem>
+          <ListItem>Freshman</ListItem>
+          <ListItem>Sophomore</ListItem>
+          <ListItem>Junior</ListItem>
+          <ListItem>Senior</ListItem>
         </ul>
       </div>
 
-      <div className={style.gender}>
-        <p>Are you</p>
+      {/* <div className={style.gender}>
+        <Text>Are you</Text>
         <div>
           <input type="radio" name="gender" id="male" />
           <label htmlFor="male">Male</label>
           <input type="radio" name="gender" id="female" />
           <label htmlFor="female">Female</label>
         </div>
-      </div>
+      </div> */}
 
-      <div className={style.start_container}>
-        <button className={style.start} onClick={startChat}>
-          START
-        </button>
-      </div>
+      <Button className={style.start} onClick={startChat}>
+        Start
+      </Button>
     </div>
   );
 };

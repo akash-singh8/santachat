@@ -10,7 +10,7 @@
 }
 
 .top {
-  border-bottom-width: 1px;
+  border-bottom-width: 1px !important;
   border-start-start-radius: 26px;
   border-start-end-radius: 26px;
   display: flex;

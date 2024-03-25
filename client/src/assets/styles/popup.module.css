@@ -123,7 +123,9 @@
   margin-bottom: 28px;
 }
 
-.waiting_head h2 {
+.waiting_head p {
+  font-size: 1.5rem !important;
+  line-height: 1.5 !important;
   font-weight: 600;
 }
 
@@ -154,7 +156,6 @@
 }
 
 .interests li {
-  background-color: #eeeeee;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.9em;
@@ -162,21 +163,6 @@
   text-align: center;
   padding: 7px 12px;
   transition: all 0.15s ease-in;
-}
-
-.interests li:hover {
-  color: var(--primary-color);
-  font-weight: 600;
-}
-
-.active_interest {
-  background-color: var(--primary-color) !important;
-  color: white !important;
-  font-weight: 600;
-}
-
-.interests li:active {
-  transform: scale(0.95);
 }
 
 .gender {
@@ -194,30 +180,10 @@
   margin-right: 5px;
 }
 
-.start_container {
-  text-align: center;
-}
-
 .start {
-  background-color: var(--primary-color);
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  color: white;
-  font-family: inherit;
-  font-size: 1em;
-  font-weight: 600;
-  padding: 8px 0;
-  width: 110px;
-  margin-top: 34px;
-}
-
-.start:hover {
-  opacity: 0.85;
-}
-
-.start:active {
-  opacity: 0.7;
+  font-size: 0.9rem !important;
+  margin-top: 14px !important;
+  width: 100%;
 }
 
 @media only screen and (max-width: 780px) {
