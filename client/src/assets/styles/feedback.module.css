@@ -7,14 +7,11 @@
 }
 
 .feedback h2 {
-  color: var(--primary-color);
   font-weight: 700;
   margin-bottom: 14px;
 }
 
 .feedback p {
-  color: var(--primary-text);
-  font-weight: 600;
   text-align: center;
   padding: 0 18%;
 }
@@ -35,19 +32,13 @@
 }
 
 .rating svg {
-  fill: #d9d9d9;
   transition: fill 0.15s ease-out;
-}
-
-.rating svg:hover {
-  fill: var(--primary-color);
 }
 
 .buttons button {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  color: var(--primary-color);
   font-family: inherit;
   font-weight: 600;
   font-size: 1em;
