@@ -1,8 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { ToastContainer } from "react-toastify";
 import { Container } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 
 import "react-toastify/dist/ReactToastify.css";
 import style from "./assets/styles/app.module.css";
@@ -20,6 +21,7 @@ import auth from "./store/auth";
 import userState from "./store/user";
 import timingPop from "./store/timing";
 import feedbackPop from "./store/feedback";
+import themes from "./utils/theme.ts";
 
 function App() {
   const feedback = useRecoilValue(feedbackPop);
@@ -49,24 +51,41 @@ function App() {
     }
   }, []);
 
+  const [themeIndex, setThemeIndex] = useState(
+    parseInt(localStorage.getItem("themeIndex") || "0")
+  );
+
+  const toggleTheme = () => {
+    const nextIndex = (themeIndex + 1) % themes.length;
+    setThemeIndex(nextIndex);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("themeIndex", themeIndex.toString());
+  }, [themeIndex]);
+
   return (
-    <Container className={style.app}>
-      <Header />
+    <ThemeProvider theme={themes[themeIndex]}>
+      <CssBaseline />
+      <button onClick={toggleTheme}>Toggle Theme</button>
+      <Container className={style.app}>
+        <Header />
 
-      <Popup />
-      {feedback && <Feedback />}
-      {timing && <Timing />}
+        <Popup />
+        {feedback && <Feedback />}
+        {timing && <Timing />}
 
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/chat" element={<Chat />}></Route>
-        <Route path="/verify" element={<Verify />}></Route>
-        <Route path="/user" element={<User />}></Route>
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/chat" element={<Chat />}></Route>
+          <Route path="/verify" element={<Verify />}></Route>
+          <Route path="/user" element={<User />}></Route>
+        </Routes>
 
-      <Footer />
-      <ToastContainer />
-    </Container>
+        <Footer />
+        <ToastContainer />
+      </Container>
+    </ThemeProvider>
   );
 }
 
