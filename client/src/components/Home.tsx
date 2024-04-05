@@ -1,7 +1,6 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Box } from "@mui/material";
 
-import demo_chat from "../assets/images/chat.png";
 import style from "../assets/styles/home.module.css";
 
 import popState from "../store/popup";
@@ -10,6 +9,7 @@ import timingPop from "../store/timing";
 
 import Button from "../shared/Button";
 import Text from "../shared/Text";
+import Chat from "./Chat";
 
 const Home = () => {
   const setPopup = useSetRecoilState(popState);
@@ -42,7 +42,9 @@ const Home = () => {
         {logged ? "Chat Anonymously" : "Get Started"} &#x27F6;
       </Button>
 
-      <img src={demo_chat} alt="Demo Chat" />
+      <div className={style.demo_chat}>
+        <Chat isDemo={true} />
+      </div>
     </Box>
   );
 };

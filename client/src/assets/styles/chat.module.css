@@ -10,7 +10,7 @@
 .chats {
   display: flex;
   flex: 1;
-  max-height: 500px;
+  max-height: 35vh;
   flex-direction: column;
   overflow-y: scroll;
   width: 100%;
@@ -38,7 +38,7 @@
   letter-spacing: 0.5px;
   max-width: 65%;
   margin: 4px 0;
-  padding: 8px 20px;
+  padding: 10px 24px;
 }
 
 .right {

@@ -9,7 +9,7 @@ import { useTheme } from "@mui/material";
 import feedbackPop from "../store/feedback";
 import auth from "../store/auth";
 
-const Chat = () => {
+const Chat = ({ isDemo = false }) => {
   const theme = useTheme();
 
   const setFeedback = useSetRecoilState(feedbackPop);
@@ -119,7 +119,7 @@ const Chat = () => {
   const sendMessage = (e) => {
     e.preventDefault();
 
-    if (!ws) {
+    if (!ws && !isDemo) {
       toast.error("Connection not established yet!", {
         toastId: "not-connected",
       });
@@ -150,16 +150,22 @@ const Chat = () => {
 
         messageObj.image = e.target.result;
         await addMessage(messageInput.value, style.right, e.target.result);
-        ws.send(JSON.stringify(messageObj));
-        messageInput.value = "";
+
+        if (!isDemo) ws.send(JSON.stringify(messageObj));
+        else addMessage(messageInput.value, style.left, e.target.result);
+
         // @ts-ignore
         image.value = "";
+        messageInput.value = "";
       };
 
       fileReader.readAsDataURL(imageFile);
     } else {
       addMessage(messageInput.value, style.right);
-      ws.send(JSON.stringify(messageObj));
+
+      if (!isDemo) ws.send(JSON.stringify(messageObj));
+      else addMessage(messageInput.value, style.left);
+
       messageInput.value = "";
     }
   };
@@ -187,11 +193,48 @@ const Chat = () => {
     input.appendChild(imageElement);
   };
 
+  const DemoChats = () => {
+    return (
+      <>
+        <div
+          className={`${style.message} ${style.right}`}
+          style={{
+            border: `1px solid ${theme.palette.primary[500]}`,
+            backgroundColor: theme.palette.primary[100],
+            color: theme.palette.primary[800],
+          }}
+        >
+          Hi, How was your day?
+        </div>
+        <div
+          className={`${style.message} ${style.left}`}
+          style={{
+            border: `1px solid ${theme.palette.primary[100]}`,
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary[100],
+          }}
+        >
+          It was good, I went for a hike with my friends, wbu
+        </div>
+        <div
+          className={`${style.message} ${style.right}`}
+          style={{
+            border: `1px solid ${theme.palette.primary[500]}`,
+            backgroundColor: theme.palette.primary[100],
+            color: theme.palette.primary[800],
+          }}
+        >
+          Nm, probably gonna go to the bronco{" "}
+        </div>
+      </>
+    );
+  };
+
   return (
     <div className={style.container}>
       <Window>
         <div className={style.chat}>
-          <div className={style.chats}></div>
+          <div className={style.chats}>{isDemo && <DemoChats />}</div>
 
           <div
             className={style.input_container}
