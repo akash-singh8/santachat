@@ -16,6 +16,7 @@ import User from "./components/User";
 import Header from "./components/Header";
 import Timing from "./components/Timing";
 import Footer from "./components/Footer";
+import Mood from "./components/Mood.tsx";
 
 import auth from "./store/auth";
 import userState from "./store/user";
@@ -67,7 +68,6 @@ function App() {
   return (
     <ThemeProvider theme={themes[themeIndex]}>
       <CssBaseline />
-      <button onClick={toggleTheme}>Toggle Theme</button>
       <Container className={style.app}>
         <Header />
 
@@ -82,6 +82,7 @@ function App() {
           <Route path="/user" element={<User />}></Route>
         </Routes>
 
+        <Mood onClick={toggleTheme} />
         <Footer />
         <ToastContainer />
       </Container>

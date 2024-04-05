@@ -10,6 +10,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  transition: all 0.15s ease-in-out;
 }
 
 a {

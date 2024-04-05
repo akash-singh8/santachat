@@ -1,0 +1,16 @@
+.moodContainer {
+  position: fixed;
+  right: 40px;
+  bottom: 60px;
+  z-index: 10;
+}
+
+.select {
+  width: 48px;
+  cursor: pointer;
+  padding: 12px !important;
+}
+
+.select img {
+  width: 100%;
+}
