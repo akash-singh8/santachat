@@ -1,13 +1,14 @@
 import { Router } from "express";
 import sendEmail from "../controller/sendEmail";
 import { verifyLink } from "../controller/linkHandler";
+import universityDomain from "../utils/universityDomain";
 
 const authRouter = Router();
 
 authRouter.post("/sendlink", (req, res) => {
   const email = req.query.user as string;
 
-  if (!email || !email.endsWith(process.env.DOMAIN!)) {
+  if (!email || !universityDomain.includes(email.split("@")[1])) {
     return res.status(400).json({ message: "Invalid email address!" });
   }
 
