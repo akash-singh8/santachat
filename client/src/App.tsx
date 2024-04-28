@@ -56,11 +56,6 @@ function App() {
     parseInt(localStorage.getItem("themeIndex") || "0")
   );
 
-  const toggleTheme = () => {
-    const nextIndex = (themeIndex + 1) % themes.length;
-    setThemeIndex(nextIndex);
-  };
-
   useEffect(() => {
     localStorage.setItem("themeIndex", themeIndex.toString());
   }, [themeIndex]);
@@ -82,7 +77,7 @@ function App() {
           <Route path="/user" element={<User />}></Route>
         </Routes>
 
-        <Mood onClick={toggleTheme} />
+        <Mood setThemeIndex={setThemeIndex} />
         <Footer />
         <ToastContainer />
       </Container>

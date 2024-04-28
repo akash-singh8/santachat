@@ -5,10 +5,38 @@
   z-index: 10;
 }
 
+.moods {
+  position: absolute;
+  bottom: 44px;
+  right: 0;
+  width: 280px;
+  padding: 20px;
+  border-radius: 12px;
+  display: none;
+}
+
+.moods ul {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  gap: 8px;
+}
+
+.moods li {
+  border: 2px solid transparent;
+  max-width: fit-content;
+  border-radius: 8px;
+  cursor: pointer;
+  list-style: none;
+  padding: 6px 14px;
+  transition: all 0.15s ease-in-out;
+}
+
 .select {
   width: 48px;
   cursor: pointer;
-  padding: 12px !important;
+  padding: 10px !important;
+  opacity: 1 !important;
 }
 
 .select img {
